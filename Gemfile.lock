@@ -346,6 +346,9 @@ GEM
       rubocop (>= 1.72)
       rubocop-performance (>= 1.24)
       rubocop-rails (>= 2.30)
+    rubocop-rspec (3.5.0)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
     ruby-progressbar (1.13.0)
     rubyzip (2.4.1)
     sass-embedded (1.85.1)
@@ -481,6 +484,7 @@ DEPENDENCIES
   rails (~> 8.0.1)
   rspec-rails
   rubocop-rails-omakase
+  rubocop-rspec
   selenium-webdriver
   solid_cable
   solid_cache
