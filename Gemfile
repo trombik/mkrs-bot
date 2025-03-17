@@ -65,3 +65,5 @@ end
 gem "dartsass-rails", "~> 0.5.1"
 
 gem "foreman", "~> 0.88.1"
+
+gem "bootstrap", "~> 5.3"

@@ -5,4 +5,6 @@ if ! gem list foreman -i --silent; then
   gem install foreman
 fi
 
+# clean up public/assets to ensure clean state
+rails assets:clobber
 bundle exec foreman start -f Procfile.dev "$@"
