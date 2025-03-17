@@ -67,3 +67,14 @@ gem "dartsass-rails", "~> 0.5.1"
 gem "foreman", "~> 0.88.1"
 
 gem "bootstrap", "~> 5.3"
+
+group :pry do
+  gem "awesome_print"
+  # https://github.com/deivid-rodriguez/pry-byebug
+  gem "pry-byebug"
+  gem "pry"
+  # https://github.com/pry/pry-doc
+  gem "pry-doc"
+  # https://github.com/pry/pry-rails
+  gem "pry-rails"
+end
