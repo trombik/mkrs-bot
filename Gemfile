@@ -81,3 +81,5 @@ group :pry do
   # https://github.com/pry/pry-rails
   gem "pry-rails"
 end
+
+gem "devise", "~> 4.9"
