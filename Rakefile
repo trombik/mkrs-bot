@@ -4,3 +4,27 @@
 require_relative "config/application"
 
 Rails.application.load_tasks
+
+require "rubocop/rake_task"
+RuboCop::RakeTask.new
+
+def html_files
+  Rails.root.glob("app/**/*.html.erb") +
+    Rails.root.glob("spec/**/*.html.erb")
+end
+
+task default: [ :spec, :rubocop, :htmlbeautifier ]
+
+desc "Run htmlbeautifier with lint only"
+task htmlbeautifier: :environment do
+  cmd = "bundle exec htmlbeautifier -b1 -l #{html_files.join(' ')}"
+  _stdout, stderr, status = Open3.capture3(cmd)
+  raise "htmlbeautifier failed with #{stderr}\nTo fix run `rake htmlbeautifier-fix`" unless status.success?
+end
+
+desc "Run htmlbeautifier and fix"
+task "htmlbeautifier-fix": :environment do
+  cmd = "bundle exec htmlbeautifier -b1 #{html_files.join(' ')}"
+  _stdout, stderr, status = Open3.capture3(cmd)
+  raise "htmlbeautifier failed with #{stderr}" unless status.success?
+end
