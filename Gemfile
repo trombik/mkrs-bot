@@ -78,7 +78,9 @@ gem "bootstrap", "~> 5.3"
 group :pry do
   gem "awesome_print"
   # https://github.com/deivid-rodriguez/pry-byebug
-  gem "pry-byebug"
+  # use 3.10.0 or later to surpress deprecation warnings
+  # chore: use pry-byebug 3.10.0 to surpress deprecation warnings
+  gem "pry-byebug", "~> 3.10.0"
   gem "pry"
   # https://github.com/pry/pry-doc
   gem "pry-doc"
