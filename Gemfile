@@ -61,6 +61,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # use lookbook for component development
+  gem "lookbook", ">= 2.3.8"
 end
 
 group :test do
