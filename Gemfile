@@ -91,3 +91,5 @@ end
 gem "devise", "~> 4.9"
 
 gem "htmlbeautifier", "~> 1.4"
+
+gem "view_component", "~> 3.21"

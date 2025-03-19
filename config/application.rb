@@ -25,5 +25,13 @@ module MkrsBot
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # always create a spec file
+    config.generators.test_framework = "rspec"
+
+    # always create locale files defined by I18n.available_locales in
+    # config/initializers/locale.rb
+    config.view_component.generate.locale = true
+    config.view_component.generate.distinct_locale_files = true
   end
 end
