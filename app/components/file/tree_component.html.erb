@@ -1,0 +1,13 @@
+<ul>
+  <% doc.each_dir(root) do |dir| %>
+    <li>
+      <%= dir %>
+      <%= render File::TreeComponent.new(root: dir, doc: doc) %>
+    </li>
+  <% end %>
+  <% doc.each_file(root) do |file| %>
+    <li>
+      <%= link_to File.basename(file), file %>
+    </li>
+  <% end %>
+</ul>

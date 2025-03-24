@@ -2,6 +2,9 @@
 require 'spec_helper'
 require "view_component/test_helpers"
 require "view_component/system_test_helpers"
+require "capybara/rspec"
+require "devise"
+require_relative "support/controller_macros"
 
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
@@ -37,10 +40,21 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   # enable ViewComponent test helpers in RSpec
+  # https://viewcomponent.org/guide/testing.html#rspec-configuration
   config.include ViewComponent::TestHelpers, type: :component
-  # XXX Capybara is not enabled at the moment
-  # config.include Capybara::RSpecMatchers, type: :component
+  config.include Capybara::RSpecMatchers, type: :component
   config.include ViewComponent::SystemTestHelpers, type: :component
+
+  # enable Devise IntegrationHelpers in RSpec
+  # https://github.com/heartcombo/devise/wiki/How-To:-Test-controllers-with-Rails-(and-RSpec)
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.extend ControllerMacros, type: :request
+  config.before(:each, type: :request) do
+    Rails.application.reload_routes_unless_loaded
+  end
+
+  # include FactoryBot
+  config.include FactoryBot::Syntax::Methods
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [

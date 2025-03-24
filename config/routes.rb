@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  get "doc/index"
   devise_for :users
   get "welcome/index"
   get "dashboard/index"
+  get "doc", to: "doc#index"
+  get "doc/*path", to: "doc#show"
   root "welcome#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
