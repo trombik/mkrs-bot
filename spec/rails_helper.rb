@@ -4,6 +4,7 @@ require "view_component/test_helpers"
 require "view_component/system_test_helpers"
 require "capybara/rspec"
 require "devise"
+require "telegram/bot/rspec/integration/rails"
 require_relative "support/controller_macros"
 
 ENV['RAILS_ENV'] ||= 'test'
@@ -39,6 +40,9 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 RSpec.configure do |config|
+  # Reset bot after test
+  config.after { Telegram.bot.reset }
+
   # enable ViewComponent test helpers in RSpec
   # https://viewcomponent.org/guide/testing.html#rspec-configuration
   config.include ViewComponent::TestHelpers, type: :component

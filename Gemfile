@@ -100,3 +100,5 @@ group :pry do
   # https://github.com/pry/pry-rails
   gem "pry-rails"
 end
+
+gem "telegram-bot", "~> 0.16.7"

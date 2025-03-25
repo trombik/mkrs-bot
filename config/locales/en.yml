@@ -26,6 +26,16 @@
 #     en:
 #       "yes": yup
 #       enabled: "ON"
-
+---
 en:
-  hello: "Hello world"
+  telegram_webhooks:
+    help:
+      content: |
+        Available commands:
+        /start Greeting
+    start:
+      content: Hello, world!
+    message:
+      content: "You wrote: %{text}"
+    action_missing:
+      command: "Cannot perform command: `%{command}`"
