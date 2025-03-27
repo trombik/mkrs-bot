@@ -13,7 +13,7 @@ def html_files
     Rails.root.glob("spec/**/*.html.erb")
 end
 
-task default: [ :spec, :rubocop, :htmlbeautifier ]
+task default: [ :spec, :rubocop, :brakeman, :htmlbeautifier ]
 
 desc "Run htmlbeautifier with lint only"
 task htmlbeautifier: :environment do
@@ -27,4 +27,9 @@ task "htmlbeautifier-fix": :environment do
   cmd = "htmlbeautifier -b1 #{html_files.join(' ')}"
   _stdout, stderr, status = Open3.capture3(cmd)
   raise "htmlbeautifier failed with #{stderr}" unless status.success?
+end
+
+desc "Run brakeman"
+task brakeman: :environment do
+  sh "brakeman"
 end
