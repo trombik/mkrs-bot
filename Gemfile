@@ -93,7 +93,7 @@ group :pry do
   # https://github.com/deivid-rodriguez/pry-byebug
   # use 3.10.0 or later to surpress deprecation warnings
   # chore: use pry-byebug 3.10.0 to surpress deprecation warnings
-  gem "pry-byebug", "~> 3.10.0"
+  gem "pry-byebug", "~> 3.11.0"
   gem "pry"
   # https://github.com/pry/pry-doc
   gem "pry-doc"
