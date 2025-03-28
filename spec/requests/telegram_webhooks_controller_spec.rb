@@ -30,4 +30,16 @@ RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
       expect { dispatch_command command }.to respond_with_message(/Cannot perform command:/)
     end
   end
+
+  describe "#send_message" do
+    let(:text) { "foo bar" }
+    let(:from) { { "id" => 123 } }
+    let(:chat) { { "id" => 456 } }
+    let(:bot) { Telegram::Bot::Client.new("TOKEN", "foo") }
+    let(:controller) { described_class.new(bot, from: from, chat: chat) }
+
+    it "sends a message" do
+      expect { controller.process :send_message, text }.to respond_with_message(/^#{text}$/)
+    end
+  end
 end
