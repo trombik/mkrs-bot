@@ -11,6 +11,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: t(".content", text: message["text"])
   end
 
+  def send_message(message)
+    respond_with :message, text: message
+  end
+
   def action_missing(action, *_args)
     if action_type == :command
       respond_with :message,
