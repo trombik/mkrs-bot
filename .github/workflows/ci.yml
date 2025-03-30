@@ -8,6 +8,7 @@ on:
 
 jobs:
   scan_ruby:
+    name: Scan (Rails)
     runs-on: ubuntu-latest
 
     steps:
@@ -24,6 +25,7 @@ jobs:
         run: bin/brakeman --no-pager
 
   scan_js:
+    name: Scan (JavaScript)
     runs-on: ubuntu-latest
 
     steps:
@@ -40,6 +42,7 @@ jobs:
         run: bin/importmap audit
 
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -55,6 +58,7 @@ jobs:
         run: bin/rubocop -f github
 
   test:
+    name: Test
     runs-on: ubuntu-latest
     env:
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
