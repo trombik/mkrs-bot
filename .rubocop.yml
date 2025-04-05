@@ -1,4 +1,5 @@
 ---
+inherit_from: .rubocop_todo.yml
 
 plugins:
   - rubocop-rails
@@ -43,8 +44,3 @@ Layout/LineLength:
 
 Style/ClassAndModuleChildren:
   Enabled: false
-
-Style/Documentation:
-  Exclude:
-    - db/migrate
-    - spec/components/previews
