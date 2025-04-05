@@ -4,6 +4,9 @@ inherit_from: .rubocop_todo.yml
 plugins:
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rspec_rails
 
 AllCops:
   NewCops: enable
@@ -43,4 +46,7 @@ Layout/LineLength:
   IgnoreCopDirectives: true
 
 Style/ClassAndModuleChildren:
+  Enabled: false
+
+RSpecRails/InferredSpecType:
   Enabled: false
