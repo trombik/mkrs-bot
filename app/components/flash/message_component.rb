@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
+# A flash message comonent. It can be used as an alert box in content.
 class Flash::MessageComponent < ViewComponent::Base
   attr_accessor :type
 
+  ACCEPTABLE_TYPES = [:alert, :notice].freeze
+
   def initialize(type:, dismissible: false)
     @type = type.to_sym
-    case @type
-    when :alert, :notice
-    else
-      raise ArgumentError, "type must be one of :alert and :notice"
-    end
+    raise ArgumentError, "type must be one of :alert and :notice" unless ACCEPTABLE_TYPES.include?(@type)
+
     @dismissible = dismissible
+    super
   end
 
   private

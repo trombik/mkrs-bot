@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require "kramdown"
 
+# A model to abstract app/doc tree.
 class Doc
   include ActiveModel::Model
   include ApplicationHelper
@@ -10,6 +13,7 @@ class Doc
 
   def each_file(path = ".", &block)
     return unless block
+
     glob(path, "*.md").each do |file|
       block.call file
     end
@@ -39,16 +43,15 @@ class Doc
   end
 
   def glob(*args)
-    path = args.join(File::SEPARATOR)
-    Dir.glob(load_path.join(path), base: load_path).map do |path|
+    given_path = args.join(File::SEPARATOR)
+    Dir.glob(load_path.join(given_path), base: load_path).map do |path|
       next unless include_directory? load_path, path
+
       path.gsub(/^#{load_path}#{File::SEPARATOR}/, "")
-    end.reject { |file| file.nil? }
+    end.compact
   end
 
   def glob_dir(*args)
     glob(args).select { |path| File.directory? load_path.join path }
-  rescue
-    pry
   end
 end

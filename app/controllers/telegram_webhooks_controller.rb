@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# The Telegram controller
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def start!(*)
     respond_with :message, text: t(".content")
@@ -15,10 +18,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: message
   end
 
-  def action_missing(action, *_args)
-    if action_type == :command
-      respond_with :message,
-        text: t("telegram_webhooks.action_missing.command"), command: action_options[:command]
-    end
+  def action_missing(_action, *_args)
+    return unless action_type == :command
+
+    respond_with :message,
+                 text: t(".action_missing.command"),
+                 command: action_options[:command]
   end
 end

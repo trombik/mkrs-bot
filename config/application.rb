@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "boot"
 
 require "rails/all"
@@ -5,10 +7,11 @@ require "rails/all"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups(
-  pry: %i[development test]
+  pry: [:development, :test]
 ))
 
 module MkrsBot
+  # Telegram application to manage Makers
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
@@ -38,11 +41,11 @@ module MkrsBot
     config.view_component.generate.preview = true
 
     # adjust preview path for rspec
-    config.view_component.preview_paths << "#{Rails.root}/spec/components/previews"
+    config.view_component.preview_paths << Rails.root.join("spec/components/previews").to_s
 
     # use empty layout for component preview, app/views/layouts/empty.html.erb
     config.view_component.default_preview_layout = "empty"
 
-    config.x.doc.load_path = Rails.root.join("app", "doc")
+    config.x.doc.load_path = Rails.root.join("app/doc")
   end
 end

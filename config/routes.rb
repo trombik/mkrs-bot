@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get "doc/index"
   devise_for :users
@@ -18,9 +20,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  if Rails.env.development?
-    mount Lookbook::Engine, at: "/lookbook"
-  end
+  mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?
 
   telegram_webhook TelegramWebhooksController
 end

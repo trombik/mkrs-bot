@@ -35,26 +35,24 @@ class Flash::MessageComponentPreview < ViewComponent::Preview
 
   def long_text
     render(Flash::MessageComponent.new(type: :notice)) do
-      "Returns an HTML block tag of type name surrounding the content. Add
-      HTML attributes by passing an attributes hash to options. Instead of
-      passing the content as an argument, you can also use a block in which
-      case, you pass your options as the second parameter. Set escape to false
-        to disable escaping. Note: this is legacy syntax, see tag method
-        description for details."
+      text
     end
   end
 
   def dismissible_long_text
     render(Flash::MessageComponent.new(type: :notice, dismissible: true)) do
-      text = tag.p "Returns an HTML block tag of type name surrounding the content. Add
-      HTML attributes by passing an attributes hash to options. Instead of
-      passing the content as an argument, you can also use a block in which
-      case, you pass your options as the second parameter. Set escape to false
-        to disable escaping. Note: this is legacy syntax, see tag method
-        description for details."
-      content = text
-      content += tag.hr
-      content += text
+      tag.p(text) + tag.hr + tag.p(text)
     end
+  end
+
+  private
+
+  def text
+    "Returns an HTML block tag of type name surrounding the content. Add
+    HTML attributes by passing an attributes hash to options. Instead of
+    passing the content as an argument, you can also use a block in which
+    case, you pass your options as the second parameter. Set escape to false
+      to disable escaping. Note: this is legacy syntax, see tag method
+      description for details."
   end
 end

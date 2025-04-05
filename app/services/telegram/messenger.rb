@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Telegram
   # A Telegram service to take actions without update
   #
@@ -11,6 +13,7 @@ module Telegram
       @from = from
       @chat = chat
       @args = args
+      super()
     end
 
     def self.call(from:, chat:, args: [])

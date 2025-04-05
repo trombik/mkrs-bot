@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 require "factory_bot"
 
@@ -35,7 +37,7 @@ RSpec.describe "Docs", type: :request do
   end
 
   context "when user is not authenticated" do
-    paths = %w[ /doc/index /doc/ ]
+    paths = %w[/doc/index /doc/]
     paths.each do |path|
       describe "GET #{path}" do
         it "returns http success" do
@@ -45,7 +47,7 @@ RSpec.describe "Docs", type: :request do
       end
     end
 
-    paths = %w[ /doc/telegram/README.md /doc/no_such_file.md ]
+    paths = %w[/doc/telegram/README.md /doc/no_such_file.md]
     paths.each do |path|
       describe "GET #{path}" do
         it "returns http success" do
