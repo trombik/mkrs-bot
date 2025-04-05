@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
@@ -21,12 +23,12 @@ gem "jbuilder"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: [:windows, :jruby]
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_cable"
 gem "solid_cache"
 gem "solid_queue"
-gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -50,13 +52,10 @@ gem "kramdown", "~> 2.5"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: [:mri, :windows], require: "debug/prelude"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
-
-  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
-  gem "rubocop-rails-omakase", require: false
 
   # https://github.com/rubocop/rubocop-rails
   gem "rubocop-rails", require: false
@@ -93,8 +92,8 @@ group :pry do
   # https://github.com/deivid-rodriguez/pry-byebug
   # use 3.10.0 or later to surpress deprecation warnings
   # chore: use pry-byebug 3.10.0 to surpress deprecation warnings
-  gem "pry-byebug", "~> 3.11.0"
   gem "pry"
+  gem "pry-byebug", "~> 3.11.0"
   # https://github.com/pry/pry-doc
   gem "pry-doc"
   # https://github.com/pry/pry-rails

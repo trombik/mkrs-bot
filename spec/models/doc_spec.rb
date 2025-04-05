@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe Doc, type: :model do
@@ -16,7 +18,7 @@ RSpec.describe Doc, type: :model do
   describe "#show" do
     context "when file exist" do
       it "shows HTML" do
-        expect(described_class.new.show("foo.md")).to match(/<h1 .*>Title<\/h1>/)
+        expect(described_class.new.show("foo.md")).to match(%r{<h1 .*>Title</h1>})
       end
     end
 
@@ -43,14 +45,14 @@ RSpec.describe Doc, type: :model do
     it "returns array of markdown files" do
       files = []
       described_class.new.each_file { |file| files << file }
-      expect(files.sort).to eq [ "foo.md", "bar.md" ].sort
+      expect(files.sort).to eq ["foo.md", "bar.md"].sort
     end
 
     context "when subdirectory is given" do
       it "returns markdown files under the directory" do
         files = []
         described_class.new.each_file("foo") { |file| files << file }
-        expect(files.sort).to eq [ Pathname.new("foo/buz.md").to_s ]
+        expect(files.sort).to eq [Pathname.new("foo/buz.md").to_s]
       end
     end
   end
@@ -59,14 +61,14 @@ RSpec.describe Doc, type: :model do
     it "calls the block given" do
       array = []
       described_class.new.each_dir { |dir| array << dir }
-      expect(array).to eq [ "foo", "bar" ].sort
+      expect(array).to eq %w[foo bar].sort
     end
 
     context "when .. is given" do
       it "returns load_path directory only" do
         array = []
         described_class.new.each_dir("..") { |dir| array << dir }
-        expect(array).to eq [ load_path.to_s ]
+        expect(array).to eq [load_path.to_s]
       end
     end
   end

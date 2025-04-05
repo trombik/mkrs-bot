@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Add your own tasks in files placed in lib/tasks ending in .rake,
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
@@ -13,18 +15,18 @@ def html_files
     Rails.root.glob("spec/**/*.html.erb")
 end
 
-task default: [ :spec, :rubocop, :brakeman, :htmlbeautifier ]
+task default: [:spec, :rubocop, :brakeman, :htmlbeautifier]
 
 desc "Run htmlbeautifier with lint only"
 task htmlbeautifier: :environment do
-  cmd = "htmlbeautifier -b1 -l #{html_files.join(' ')}"
+  cmd = "htmlbeautifier -b1 -l #{html_files.join(" ")}"
   _stdout, stderr, status = Open3.capture3(cmd)
   raise "htmlbeautifier failed with #{stderr}\nTo fix run `rake htmlbeautifier-fix`" unless status.success?
 end
 
 desc "Run htmlbeautifier and fix"
 task "htmlbeautifier-fix": :environment do
-  cmd = "htmlbeautifier -b1 #{html_files.join(' ')}"
+  cmd = "htmlbeautifier -b1 #{html_files.join(" ")}"
   _stdout, stderr, status = Open3.capture3(cmd)
   raise "htmlbeautifier failed with #{stderr}" unless status.success?
 end
