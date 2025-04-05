@@ -3,19 +3,19 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "e10b9e55ceddd5085848234db6843fd87ae49ae39e916d580ff1aa114c3e4d45",
+      "fingerprint": "3a719486c10be3a4382f6190af30471b7769fd7887e1338a9c77a7a167157048",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/doc/show.html.erb",
       "line": 1,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "Doc.new.show(((params[:path] + \".\") + params[:format]))",
+      "code": "Doc.new.show(\"#{params[:path]}.#{params[:format]}\")",
       "render_path": [
         {
           "type": "controller",
           "class": "DocController",
           "method": "show",
-          "line": 15,
+          "line": 18,
           "file": "app/controllers/doc_controller.rb",
           "rendered": {
             "name": "doc/show",
@@ -32,7 +32,7 @@
       "cwe_id": [
         79
       ],
-      "note": "The model is based on files under app/doc and can be trusted."
+      "note": ""
     }
   ],
   "brakeman_version": "7.0.0"
