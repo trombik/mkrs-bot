@@ -3,13 +3,14 @@
 class Flash::MessageComponent < ViewComponent::Base
   attr_accessor :type
 
-  def initialize(type:)
+  def initialize(type:, dismissible: false)
     @type = type.to_sym
     case @type
     when :alert, :notice
     else
       raise ArgumentError, "type must be one of :alert and :notice"
     end
+    @dismissible = dismissible
   end
 
   private
@@ -30,5 +31,13 @@ class Flash::MessageComponent < ViewComponent::Base
     when :notice
       "#info-fill"
     end
+  end
+
+  def class_dismissible
+    dismissible? ? "alert-dismissible fade show" : ""
+  end
+
+  def dismissible?
+    @dismissible
   end
 end
