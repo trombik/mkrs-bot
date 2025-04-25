@@ -53,7 +53,14 @@ RSpec.configure do |config|
 
   # enable Devise IntegrationHelpers in RSpec
   # https://github.com/heartcombo/devise/wiki/How-To:-Test-controllers-with-Rails-(and-RSpec)
+  # https://viewcomponent.org/guide/testing.html#rspec-configuration
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::ControllerHelpers, type: :component
+
+  config.before(:each, type: :component) do
+    @request = vc_test_controller.request
+  end
+
   config.extend ControllerMacros, type: :request
   config.before(:each, type: :request) do
     Rails.application.reload_routes_unless_loaded

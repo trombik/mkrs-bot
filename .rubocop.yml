@@ -32,6 +32,11 @@ Metrics/BlockLength:
     - config/**/*
   AllowedMethods: []
 
+RSpec/ExampleLength:
+  # features often require many steps
+  Exclude:
+    - spec/features/**/*
+
 Layout/LineLength:
   Exclude: []
   # ignore heredoc for readability
