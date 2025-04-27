@@ -55,3 +55,8 @@ Style/ClassAndModuleChildren:
 
 RSpecRails/InferredSpecType:
   Enabled: false
+
+Style/Documentation:
+  Exclude:
+    - spec/components/previews/**/*
+    - db/migrate/**/*

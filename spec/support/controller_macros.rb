@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# A macro module for spec files
 module ControllerMacros
   # https://github.com/heartcombo/devise/wiki/How-To:-Test-controllers-with-Rails-(and-RSpec)
   def login_admin
