@@ -1,5 +1,6 @@
 <div class="container">
   <h2><%= title %></h2>
+  <%= content %>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -22,6 +23,7 @@
             </th>
           <% end %>
           <th>
+            <%= render Button::LinkComponent.new("View", polymorphic_path(item)) %>
             <%= render Button::LinkComponent.new("Edit", edit_polymorphic_path(item)) %>
           </th>
         </tr>

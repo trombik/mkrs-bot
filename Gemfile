@@ -94,6 +94,8 @@ gem "foreman", "~> 0.88.1"
 
 gem "bootstrap", "~> 5.3"
 
+gem "bootstrap_form", "~> 5.4"
+
 group :pry do
   gem "awesome_print"
   # https://github.com/deivid-rodriguez/pry-byebug
