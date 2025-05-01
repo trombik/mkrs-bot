@@ -16,7 +16,10 @@ class StaffGroupsController < ApplicationController
     @staff_group = StaffGroup.new
   end
 
-  def edit; end
+  def edit
+    @staff_group = StaffGroup.find(params[:id])
+    render :index unless @staff_group
+  end
 
   def create
     @staff_group = StaffGroup.new(staff_group_params)
@@ -27,7 +30,14 @@ class StaffGroupsController < ApplicationController
     end
   end
 
-  def update; end
+  def update
+    @staff_group = StaffGroup.find_by(id: params[:id])
+    if @staff_group.update(staff_group_params)
+      redirect_to @staff_group, notice: "Updated #{@staff_group.name}"
+    else
+      render :edit
+    end
+  end
 
   def destroy
     @staff_group = StaffGroup.find_by(id: params[:id])

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.feature "Roles management", :js, type: :system do
+RSpec.feature "Roles management", type: :system do
   let(:user) { create(:user) }
   let(:default_staff_group) do
     group = create(:staff_group)
@@ -46,7 +46,17 @@ RSpec.feature "Roles management", :js, type: :system do
     scenario "Delete a role" do
       click_on "View"
       click_on "Delete"
+
       expect(page).to have_content "Deleted #{default_staff_group.name}"
+    end
+
+    scenario "Edit a role" do
+      new_name = "New Name"
+      click_on "Edit"
+      fill_in "Name", with: new_name
+      click_on "Save"
+
+      expect(page).to have_content "Updated #{new_name}"
     end
   end
 end
