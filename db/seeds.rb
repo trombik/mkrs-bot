@@ -16,4 +16,6 @@ when "development"
     user.password = "password"
     user.password_confirmation = "password"
   end
+
+  StaffGroup.find_or_create_by name: "Example group"
 end
