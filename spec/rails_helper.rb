@@ -42,7 +42,6 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 RSpec.configure do |config|
-
   # configure system tests
   config.before(:each, type: :system) do
     driven_by :rack_test # rack_test by default, for performance
@@ -53,7 +52,6 @@ RSpec.configure do |config|
   #   ...
   # end
   config.before(:each, :js, type: :system) do
-
     # Set DEBUG environment variable to see the test in action in browser
     browser = ENV["DEBUG"] ? :chrome : :headless_chrome
     driven_by :selenium, using: browser, screen_size: [1_920, 1_080]
