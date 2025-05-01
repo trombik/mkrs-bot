@@ -35,7 +35,7 @@ Metrics/BlockLength:
 RSpec/ExampleLength:
   # features often require many steps
   Exclude:
-    - spec/features/**/*
+    - spec/system/**/*
 
 Layout/LineLength:
   Exclude: []

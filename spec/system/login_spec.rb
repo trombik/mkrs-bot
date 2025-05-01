@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.feature "Logins", type: :feature do
+RSpec.feature "Logins", type: :system do
   let(:user) { create(:user) }
 
   scenario "Sign-in" do
