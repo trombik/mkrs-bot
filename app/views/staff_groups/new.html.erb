@@ -1,0 +1,6 @@
+<h2>Create a role</h2>
+<%= bootstrap_form_with(model: @staff_group) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.submit "Save" %>
+  <%= render Button::LinkComponent.new("Cancel", staff_groups_path) %>
+<% end %>

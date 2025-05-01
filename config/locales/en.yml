@@ -39,3 +39,5 @@ en:
       content: "You wrote: %{text}"
     action_missing:
       command: "Cannot perform command: `%{command}`"
+
+  resource_missing: "Resource not found"

@@ -1,1 +1,3 @@
-<%= render Table::WithActionsComponent.new(title: "Roles", columns: ["name"], items: @staff_groups) %>
+<%= render Table::WithActionsComponent.new(title: "Roles", columns: ["name"], items: @staff_groups) do %>
+  <%= render Button::LinkComponent.new("Create Role", new_staff_group_path) %>
+<% end %>
