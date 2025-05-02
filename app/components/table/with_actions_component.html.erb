@@ -17,13 +17,16 @@
     <tbody>
       <% items.each do |item| %>
         <tr>
-          <% columns.each do |column| %>
+          <% columns.each_with_index do |column, index| %>
             <th>
-              <%= item.send(column) %>
+              <% if index == 0 %>
+                <%= link_to item.send(column), item %>
+              <% else %>
+                  <%= item.send(column) %>
+                <% end %>
             </th>
           <% end %>
           <th>
-            <%= render Button::LinkComponent.new("View", polymorphic_path(item)) %>
             <%= render Button::LinkComponent.new("Edit", edit_polymorphic_path(item)) %>
           </th>
         </tr>
