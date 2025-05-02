@@ -44,7 +44,7 @@ RSpec.feature "Roles management", type: :system do
     end
 
     scenario "Delete a role" do
-      click_on "View"
+      click_on default_staff_group.name
       click_on "Delete"
 
       expect(page).to have_content "Deleted #{default_staff_group.name}"
@@ -57,6 +57,12 @@ RSpec.feature "Roles management", type: :system do
       click_on "Save"
 
       expect(page).to have_content "Updated #{new_name}"
+    end
+
+    scenario "Show a role" do
+      click_on default_staff_group.name
+
+      expect(page).to have_current_path staff_group_path(default_staff_group)
     end
   end
 end
