@@ -10,6 +10,8 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+StaffGroup.find_or_create_by name: "All staffs"
+
 case Rails.env
 when "development"
   User.find_or_create_by email: "y@trombik.org" do |user|
