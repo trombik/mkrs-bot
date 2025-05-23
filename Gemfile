@@ -46,7 +46,7 @@ gem "devise", "~> 4.9"
 
 gem "htmlbeautifier", "~> 1.4"
 
-gem "view_component", "~> 3.22"
+gem "view_component", "~> 3.23"
 
 gem "kramdown", "~> 2.5"
 
