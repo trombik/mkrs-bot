@@ -32,6 +32,10 @@ Metrics/BlockLength:
     - config/**/*
   AllowedMethods: []
 
+Metrics/MethodLength:
+  Exclude:
+    - db/migrate/**/*
+
 RSpec/ExampleLength:
   # features often require many steps
   Exclude:
