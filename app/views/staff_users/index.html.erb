@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Staff users" %>
+
+<h1>Staff users</h1>
+
+<div id="staff_users">
+  <%= render StaffUser::ListComponent.new(@staff_users) %>
+</div>
+
+<%= link_to "New staff user", new_staff_user_path %>
