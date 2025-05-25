@@ -40,4 +40,15 @@ en:
     action_missing:
       command: "Cannot perform command: `%{command}`"
 
+  staff_user:
+    create:
+      staff_user_successfully_created:
+        content: Staff user was successfully created.
+    update:
+      staff_user_successfully_updated:
+        content: Staff user was successfully updated.
+    destroy:
+      staff_user_successfully_destroyed:
+        content: Staff user was successfully destroyed.
+
   resource_missing: "Resource not found"

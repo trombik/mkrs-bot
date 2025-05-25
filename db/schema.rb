@@ -10,12 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_01_034516) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_25_075641) do
   create_table "staff_groups", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_staff_groups_on_name", unique: true
+  end
+
+  create_table "staff_groups_users", id: false, force: :cascade do |t|
+    t.integer "staff_user_id"
+    t.integer "staff_group_id"
+    t.index ["staff_group_id"], name: "index_staff_groups_users_on_staff_group_id"
+    t.index ["staff_user_id"], name: "index_staff_groups_users_on_staff_user_id"
+  end
+
+  create_table "staff_users", force: :cascade do |t|
+    t.string "name"
+    t.string "account"
+    t.string "display_name"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
