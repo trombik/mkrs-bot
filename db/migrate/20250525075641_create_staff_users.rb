@@ -6,7 +6,9 @@ class CreateStaffUsers < ActiveRecord::Migration[8.0]
       t.string :name
       t.string :account
       t.string :display_name
+      # rubocop:disable Rails/ThreeStateBooleanColumn
       t.boolean :active
+      # rubocop:enable Rails/ThreeStateBooleanColumn
 
       t.timestamps
     end
