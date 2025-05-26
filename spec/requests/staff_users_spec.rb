@@ -87,15 +87,16 @@ RSpec.describe "/staff_users", type: :request do
 
   describe "PATCH /update" do
     context "with valid parameters" do
+      let(:new_account) { "foo123456789" }
       let(:new_attributes) do
-        skip("Add a hash of attributes valid for your model")
+        { name: "foo", display_name: "Foo", active: true, account: new_account }
       end
 
       it "updates the requested staff_user" do
         staff_user = StaffUser.create! valid_attributes
         patch staff_user_url(staff_user), params: { staff_user: new_attributes }
         staff_user.reload
-        skip("Add assertions for updated state")
+        expect(staff_user.account).to eq new_account
       end
 
       it "redirects to the staff_user" do
