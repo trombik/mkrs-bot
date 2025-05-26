@@ -7,6 +7,7 @@ class StaffUser < ApplicationRecord
   validates :display_name, presence: true
   validates :account, presence: true
   validates :active, inclusion: { in: [true, false] }
+  validates :active, exclusion: { in: [nil] }
   validates :account, format: { with: /\A[a-zA-Z0-9_]+\z/ }
   validates :account, length: { in: 5..32 }
 

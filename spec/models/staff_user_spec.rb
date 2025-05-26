@@ -10,8 +10,10 @@ RSpec.describe StaffUser, type: :model do
 
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:display_name) }
+
     it { is_expected.to allow_value(true).for(:active) }
     it { is_expected.to allow_value(false).for(:active) }
+    it { is_expected.not_to allow_value(nil).for(:active) }
 
     # The spec of Telegram account can be found at:
     # https://core.telegram.org/method/account.checkUsername
