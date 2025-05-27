@@ -20,6 +20,7 @@ RSpec.describe "staff_users/index", type: :view do
            ])
   end
 
+  # rubocop:disable RSpec/ExampleLength
   it "renders a list of staff_users" do
     render
     cell_selector = "td>a"
@@ -30,4 +31,5 @@ RSpec.describe "staff_users/index", type: :view do
     assert_select cell_selector, text: Regexp.new("Display Name"), count: 2
     assert_select cell_selector, text: Regexp.new(false.to_s), count: 2
   end
+  # rubocop:enable RSpec/ExampleLength
 end

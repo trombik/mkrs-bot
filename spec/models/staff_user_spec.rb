@@ -3,6 +3,9 @@
 require "rails_helper"
 
 RSpec.describe StaffUser, type: :model do
+  let(:staff_user) { create(:staff_user) }
+  let(:staff_group) { create(:staff_group) }
+
   describe "validations" do
     before do
       create(:staff_user)
@@ -22,5 +25,10 @@ RSpec.describe StaffUser, type: :model do
     it { is_expected.not_to allow_value("@foo12345").for(:account) }
     it { is_expected.to validate_length_of(:account).is_at_least(5) }
     it { is_expected.to validate_length_of(:account).is_at_most(32) }
+  end
+
+  it "adds a membership of a group" do
+    staff_user.staff_groups << staff_group
+    expect(staff_user.staff_group_ids).to include(staff_group.id)
   end
 end

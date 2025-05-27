@@ -19,4 +19,10 @@
     <%= staff_user.active %>
   </p>
 
+  <ul>
+    <% staff_user.staff_groups.each do |group| %>
+      <li><%= group.name %></li>
+    <% end %>
+  </ul>
+
 </div>

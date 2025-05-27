@@ -8,5 +8,6 @@ class StaffGroup < ApplicationRecord
   validates :name, presence: true
   validates :name, length: { maximum: 255 }
 
-  has_and_belongs_to_many :staff_users
+  has_many :staff_group_membership, dependent: :delete_all
+  has_many :staff_users, through: :staff_group_membership
 end

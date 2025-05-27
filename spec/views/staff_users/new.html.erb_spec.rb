@@ -12,6 +12,7 @@ RSpec.describe "staff_users/new", type: :view do
                         ))
   end
 
+  # rubocop:disable RSpec/ExampleLength
   it "renders new staff_user form" do
     render
 
@@ -25,4 +26,5 @@ RSpec.describe "staff_users/new", type: :view do
       assert_select "input[name=?]", "staff_user[active]"
     end
   end
+  # rubocop:enable RSpec/ExampleLength
 end
