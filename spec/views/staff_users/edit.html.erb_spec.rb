@@ -16,6 +16,7 @@ RSpec.describe "staff_users/edit", type: :view do
     assign(:staff_user, staff_user)
   end
 
+  # rubocop:disable RSpec/ExampleLength
   it "renders the edit staff_user form" do
     render
 
@@ -29,4 +30,5 @@ RSpec.describe "staff_users/edit", type: :view do
       assert_select "input[name=?]", "staff_user[active]"
     end
   end
+  # rubocop:enable RSpec/ExampleLength
 end

@@ -12,6 +12,7 @@ RSpec.describe "staff_users/show", type: :view do
                         ))
   end
 
+  # rubocop:disable RSpec/MultipleExpectations
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(/Name/)
@@ -19,4 +20,5 @@ RSpec.describe "staff_users/show", type: :view do
     expect(rendered).to match(/Display Name/)
     expect(rendered).to match(/false/)
   end
+  # rubocop:enable RSpec/MultipleExpectations
 end

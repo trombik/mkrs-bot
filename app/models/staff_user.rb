@@ -11,5 +11,6 @@ class StaffUser < ApplicationRecord
   validates :account, format: { with: /\A[a-zA-Z0-9_]+\z/ }
   validates :account, length: { in: 5..32 }
 
-  has_and_belongs_to_many :staff_groups
+  has_many :staff_group_membership, dependent: :delete_all
+  has_many :staff_groups, through: :staff_group_membership
 end

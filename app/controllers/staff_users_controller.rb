@@ -21,6 +21,7 @@ class StaffUsersController < ApplicationController
   def edit; end
 
   # POST /staff_users or /staff_users.json
+  # rubocop:disable Metrics/MethodLength
   def create
     @staff_user = StaffUser.new(staff_user_params)
 
@@ -42,7 +43,7 @@ class StaffUsersController < ApplicationController
     respond_to do |format|
       if @staff_user.update(staff_user_params)
         format.html do
-          redirect_to @staff_user, notice: I18n.t("staff_user.create.staff_user_successfully_updated.content")
+          redirect_to @staff_user, notice: I18n.t("staff_user.update.staff_user_successfully_updated.content")
         end
         format.json { render :show, status: :ok, location: @staff_user }
       else
@@ -51,15 +52,16 @@ class StaffUsersController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # DELETE /staff_users/1 or /staff_users/1.json
   def destroy
-    @staff_user.destroy!
+    @staff_user.delete
 
     respond_to do |format|
       format.html do
         redirect_to staff_users_path, status: :see_other,
-                                      notice: I18n.t("staff_user.create.staff_user_successfully_destroyed.content")
+                                      notice: I18n.t("staff_user.destroy.staff_user_successfully_destroyed.content")
       end
       format.json { head :no_content }
     end
@@ -74,6 +76,6 @@ class StaffUsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def staff_user_params
-    params.expect(staff_user: [:name, :account, :display_name, :active])
+    params.expect(staff_user: [:name, :account, :display_name, :active, { staff_group_ids: [] }])
   end
 end
