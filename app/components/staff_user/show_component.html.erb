@@ -1,0 +1,30 @@
+<div class="container">
+  <div id="<%= dom_id staff_user %>">
+    <p>
+      <strong>Name:</strong>
+      <%= staff_user.name %>
+    </p>
+
+    <p>
+      <strong>Account:</strong>
+      <%= staff_user.account %>
+    </p>
+
+    <p>
+      <strong>Display name:</strong>
+      <%= staff_user.display_name %>
+    </p>
+
+    <p>
+      <strong>Active:</strong>
+      <%= staff_user.active %>
+    </p>
+
+    <ul>
+      <% staff_user.staff_groups.each do |group| %>
+        <li><%= group.name %></li>
+      <% end %>
+    </ul>
+
+  </div>
+</div>
