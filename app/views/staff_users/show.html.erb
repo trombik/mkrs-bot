@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @staff_user %>
+<%= render StaffUser::ShowComponent.new(@staff_user) %>
 
 <div>
   <%= link_to "Edit this staff user", edit_staff_user_path(@staff_user) %> |

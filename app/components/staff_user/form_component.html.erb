@@ -1,0 +1,38 @@
+<div class="container">
+  <%= bootstrap_form_with(model: staff_user) do |form| %>
+    <% if staff_user.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(staff_user.errors.count, "error") %> prohibited this staff_user from being saved:</h2>
+
+        <ul>
+          <% staff_user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.text_field :name, help: "Official name, such as full name on ID card" %>
+    </div>
+
+    <div>
+      <%= form.text_field :account, help: "Telegram account name. Do not prepend '@' mark. Use 'AccountName', NOT '@AccountName'.", prepend: "@" %>
+    </div>
+
+    <div>
+      <%= form.text_field :display_name, help: "The name you will see in most cases, such as nickname." %>
+    </div>
+
+    <div>
+      <%= form.check_box :active %>
+    </div>
+
+    <div>
+      <%= form.collection_check_boxes :staff_group_ids, StaffGroup.all, :id, :name, label: "Group" %>
+      <div>
+        <%= form.submit %>
+      </div>
+    </div>
+  <% end %>
+</div>
