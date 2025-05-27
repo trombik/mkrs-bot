@@ -27,6 +27,10 @@ Style/SymbolArray:
   # perefer brackets for `grep-ability`
   EnforcedStyle: brackets
 
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - db/migrate/**/*
+
 Metrics/BlockLength:
   Exclude:
     - config/**/*
