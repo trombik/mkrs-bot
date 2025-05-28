@@ -44,6 +44,12 @@ RSpec/ExampleLength:
   # features often require many steps
   Exclude:
     - spec/system/**/*
+RSpec/MultipleExpectations:
+  Exclude:
+    # component specs often require multipul expectations
+    - spec/components/**/*
+    # system specs often require multipul expectations
+    - spec/system/**/*
 
 Layout/LineLength:
   Exclude: []
