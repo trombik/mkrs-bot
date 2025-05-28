@@ -1,7 +1,1 @@
-<div class="container">
-  <h2><%= link_to "Role", staff_groups_path %> > <%= @staff_group.name %></h2>
-
-  <h3><%= @staff_group.name %></h3>
-
-  <%= render Button::FormComponent.new("Delete", staff_group_path(@staff_group), "delete") %>
-</div>
+<%= render StaffGroup::ShowComponent.new(@staff_group) %>

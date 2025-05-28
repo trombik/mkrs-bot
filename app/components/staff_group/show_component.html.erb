@@ -1,0 +1,37 @@
+<div class="container" id="<%= staff_group.class.to_s.underscore %>">
+  <h2><%= link_to "Role", staff_groups_path %> > <%= staff_group.name %></h2>
+
+  <h3><%= staff_group.name %></h3>
+
+  <%= render Button::FormComponent.new("Delete", staff_group_path(staff_group), "delete") %>
+
+  <div class="container">
+    <h3>Members</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">
+            Name
+          </th>
+          <th scope="col">
+            Active
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% staff_group.staff_users.each do |staff_user| %>
+          <tr>
+            <th><%= link_to staff_user.display_name, staff_user %></th>
+            <th>
+              <% if staff_user.active? %>
+                <span class="badge rounded-pill bg-primary">Active</span>
+              <% else %>
+                <span class="badge rounded-pill bg-secondary">Inactive</span>
+              <% end %>
+            </th>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

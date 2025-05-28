@@ -4,6 +4,7 @@ require "rails_helper"
 
 RSpec.feature "StaffGroup management", type: :system do
   let(:user) { create(:user) }
+  let(:staff_user) { create(:staff_user, staff_groups: [default_staff_group]) }
   let(:default_staff_group) { create(:staff_group, name: "Default group") }
 
   before do
@@ -50,6 +51,7 @@ RSpec.feature "StaffGroup management", type: :system do
 
     describe "StaffGroup page" do
       before do
+        staff_user
         visit staff_group_path(default_staff_group)
       end
 
@@ -58,11 +60,16 @@ RSpec.feature "StaffGroup management", type: :system do
       end
 
       it "shows all the members" do
-        expect(page).to have_content "Members"
+        within("div.container#staff_group") do
+          expect(page).to have_content "Members"
+          expect(page).to have_content staff_user.display_name
+        end
       end
 
       it "has links to the members" do
-        skip "TBI"
+        within("div.container#staff_group") do
+          expect(page).to have_link(staff_user.display_name, href: staff_user_path(staff_user))
+        end
       end
     end
 
