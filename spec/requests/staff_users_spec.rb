@@ -32,6 +32,12 @@ RSpec.describe "/staff_users", type: :request do
       get staff_users_url
       expect(response).to be_successful
     end
+
+    it_behaves_like "success response", Rails.application.routes.url_helpers.staff_users_url(only_path: true) do
+      before do
+        StaffUser.create! valid_attributes
+      end
+    end
   end
 
   describe "GET /show" do

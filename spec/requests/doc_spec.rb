@@ -4,57 +4,29 @@ require "rails_helper"
 require "factory_bot"
 
 RSpec.describe "Docs", type: :request do
+  it_behaves_like "authentication is required", "/doc/index"
+
   context "when user is authenticated" do
     login_user
 
-    describe "GET /doc/index" do
-      it "returns http success" do
-        get "/doc/index"
-        expect(response).to have_http_status(:success)
-      end
-    end
-
-    describe "GET /doc/" do
-      it "returns http success" do
-        get "/doc/"
-        expect(response).to have_http_status(:success)
-      end
-    end
-
-    describe "GET /doc/telegram/README.md" do
-      it "returns http success" do
-        get "/doc/telegram/README.md"
-        expect(response).to have_http_status(:success)
-      end
-    end
+    it_behaves_like "success response", "/doc/index"
+    it_behaves_like "success response", "/doc/"
+    it_behaves_like "success response", "/doc/telegram/README.md"
 
     context "when resouce is not found" do
-      it "returns 404" do
-        get "/doc/no_such_file.md"
-        expect(response).to have_http_status(:not_found)
-      end
+      it_behaves_like "not found response", "/doc/no_such_file.md"
     end
   end
 
   context "when user is not authenticated" do
     paths = %w[/doc/index /doc/]
     paths.each do |path|
-      describe "GET #{path}" do
-        it "returns http success" do
-          get path
-          expect(response).to have_http_status(:redirect)
-        end
-      end
+      it_behaves_like "redirect response", path
     end
 
     paths = %w[/doc/telegram/README.md /doc/no_such_file.md]
     paths.each do |path|
-      describe "GET #{path}" do
-        it "returns http success" do
-          get path
-          expect(response).to have_http_status(:unauthorized)
-        end
-      end
+      it_behaves_like "unauthorized response", path
     end
   end
 end
