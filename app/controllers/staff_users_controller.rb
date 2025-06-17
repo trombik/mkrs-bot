@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # A controller to handle StaffUser
-class StaffUsersController < ApplicationController
+class StaffUsersController < ProtectedController
   before_action :set_staff_user, only: [:show, :edit, :update, :destroy]
 
   # GET /staff_users or /staff_users.json

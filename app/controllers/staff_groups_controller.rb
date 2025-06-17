@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 # A controller for StaffGroup
-class StaffGroupsController < ApplicationController
-  before_action :authenticate_user!
-
+class StaffGroupsController < ProtectedController
   def index
     @staff_groups = StaffGroup.all
   end
