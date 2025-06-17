@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # A controller to browse app/doc
-class DocController < ApplicationController
-  before_action :disable_in_prod, :authenticate_user!
+class DocController < ProtectedController
+  before_action :disable_in_prod
 
   def index
     @doc = Doc.new

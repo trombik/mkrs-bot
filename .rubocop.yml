@@ -74,3 +74,6 @@ Style/Documentation:
   Exclude:
     - spec/components/previews/**/*
     - db/migrate/**/*
+
+RSpec/NestedGroups:
+  Max: 4
