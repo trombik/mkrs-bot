@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_26_005349) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_17_034050) do
   create_table "staff_group_memberships", force: :cascade do |t|
     t.integer "staff_user_id", null: false
     t.integer "staff_group_id", null: false
@@ -43,6 +43,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_26_005349) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -57,4 +66,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_26_005349) do
 
   add_foreign_key "staff_group_memberships", "staff_groups"
   add_foreign_key "staff_group_memberships", "staff_users"
+  add_foreign_key "tasks", "users"
 end
