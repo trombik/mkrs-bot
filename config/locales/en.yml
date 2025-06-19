@@ -51,4 +51,12 @@ en:
       staff_user_successfully_destroyed:
         content: Staff user was successfully destroyed.
 
+  task:
+    update:
+      task_successfully_updated: Task successfully updated.
+    create:
+      task_successfully_created: Task successfully created.
+    destroy:
+      task_successfully_deleted: Task successfully deleted.
+
   resource_missing: "Resource not found"

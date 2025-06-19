@@ -1,0 +1,18 @@
+<div class="container" id="<%= task.class.to_s.underscore %>">
+  <h2><%= link_to "Tasks", tasks_path %> &gt; <%= task.name %></h2>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <%= task.name %>
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+          <%= task.description %>
+        </p>
+      </div>
+      <div class="card-footer text-end">
+        <%= render Button::FormComponent.new("Delete", task_path(task), "delete") %>
+      </div>
+    </div>
+  </div>
+</div>

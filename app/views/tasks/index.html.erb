@@ -1,0 +1,3 @@
+<%= render Table::WithActionsComponent.new(title: "Tasks", columns: ["name"], items: @tasks) do %>
+  <%= render Button::LinkComponent.new("Create Task", new_task_path) %>
+<% end %>
