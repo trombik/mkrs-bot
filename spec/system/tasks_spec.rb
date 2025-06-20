@@ -78,5 +78,64 @@ RSpec.describe "Tasks", type: :system do
       end
       expect(page).to have_content(new_name)
     end
+
+    it "has a form element to assign a new task to StaffUser or StaffGroup" do
+      visit new_task_url
+      expect(page).to have_css "div#nav-task-assignment"
+    end
+
+    it "has a form element to assign an existing task to StaffUser or StaffGroup" do
+      visit edit_task_path(task)
+      expect(page).to have_css "div#nav-task-assignment"
+    end
+
+    it "assigns an existing task to a user" do
+      staff_user = create(:staff_user)
+      visit edit_task_path(task)
+      check staff_user.display_name
+      click_on "Update Task"
+
+      expect(page).to have_content("successfully")
+      expect(task.staff_users.to_a).to include(staff_user)
+    end
+
+    it "assigns an existing task to a group" do
+      staff_user = create(:staff_user)
+      staff_group = create(:staff_group, staff_users: [staff_user])
+      visit edit_task_path(task)
+      check staff_group.name
+      click_on "Update Task"
+
+      expect(page).to have_content("successfully")
+      expect(task.staff_groups).to include(staff_group)
+      expect(task.assignees).to include(staff_group)
+      expect(task.expanded_assignees.map { |element| element.include?(staff_user) }).to include(true)
+    end
+
+    it "removes a group from an existing task" do
+      staff_user = create(:staff_user)
+      staff_group = create(:staff_group, staff_users: [staff_user])
+      task.staff_groups << staff_group
+      visit edit_task_path(task)
+      uncheck staff_group.name
+      click_on "Update Task"
+
+      expect(page).to have_content("successfully")
+      expect(task.staff_groups).not_to include(staff_group)
+      expect(task.assignees).not_to include(staff_group)
+      expect(task.expanded_assignees).not_to include(staff_user)
+    end
+
+    it "removes a user from an existing task" do
+      staff_user = create(:staff_user)
+      task.staff_users << staff_user
+      visit edit_task_path(task)
+      uncheck staff_user.display_name
+      click_on "Update Task"
+
+      expect(page).to have_content("successfully")
+      expect(task.staff_users).not_to include(staff_user)
+      expect(task.assignees).not_to include(staff_user)
+    end
   end
 end

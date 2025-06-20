@@ -76,6 +76,14 @@ class StaffUsersController < ProtectedController
 
   # Only allow a list of trusted parameters through.
   def staff_user_params
-    params.expect(staff_user: [:name, :account, :display_name, :active, { staff_group_ids: [] }])
+    params.expect(
+      staff_user: [
+        :name,
+        :account,
+        :display_name,
+        :active,
+        { staff_group_ids: [] }
+      ]
+    )
   end
 end

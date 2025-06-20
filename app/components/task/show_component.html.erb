@@ -9,10 +9,23 @@
         <p class="card-text">
           <%= task.description %>
         </p>
-      </div>
-      <div class="card-footer text-end">
-        <%= render Button::FormComponent.new("Delete", task_path(task), "delete") %>
+        <p class="caed-text">
+          <% task.assignees.each do |assignee| %>
+            <% klass = "badge" %>
+            <% case assignee.respond_to?(:staff_users) %>
+            <% when true %>
+              <% klass += " text-bg-primary" %>
+            <% else %>
+              <% klass += " text-bg-success" %>
+            <% end %>
+            <span class="<%= klass %>">
+              <%= assignee.name %>
+            </span>
+          <% end %>
+        </div>
+        <div class="card-footer text-end">
+          <%= render Button::FormComponent.new("Delete", task_path(task), "delete") %>
+        </div>
       </div>
     </div>
   </div>
-</div>

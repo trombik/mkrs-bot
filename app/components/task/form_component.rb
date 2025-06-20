@@ -8,4 +8,12 @@ class Task::FormComponent < ViewComponent::Base
     @task = task
     super
   end
+
+  def all_groups
+    StaffGroup.all
+  end
+
+  def all_users
+    StaffUser.all
+  end
 end
