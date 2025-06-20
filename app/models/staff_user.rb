@@ -13,4 +13,6 @@ class StaffUser < ApplicationRecord
 
   has_many :staff_group_membership, dependent: :delete_all
   has_many :staff_groups, through: :staff_group_membership
+  has_many :task_assignments, as: :assignee, dependent: :destroy
+  has_many :tasks, through: :task_assignments
 end

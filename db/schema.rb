@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_17_034050) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_20_022705) do
   create_table "staff_group_memberships", force: :cascade do |t|
     t.integer "staff_user_id", null: false
     t.integer "staff_group_id", null: false
@@ -43,6 +43,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_17_034050) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "task_assignments", force: :cascade do |t|
+    t.integer "task_id"
+    t.string "assignee_type"
+    t.integer "assignee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignee_type", "assignee_id"], name: "index_task_assignments_on_assignee"
+    t.index ["task_id", "assignee_id", "assignee_type"], name: "idx_on_task_id_assignee_id_assignee_type_6082fffcef", unique: true
+    t.index ["task_id"], name: "index_task_assignments_on_task_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -66,5 +77,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_17_034050) do
 
   add_foreign_key "staff_group_memberships", "staff_groups"
   add_foreign_key "staff_group_memberships", "staff_users"
+  add_foreign_key "task_assignments", "tasks"
   add_foreign_key "tasks", "users"
 end

@@ -65,12 +65,24 @@ class TasksController < ProtectedController
     @task = Task.find(params.expect(:id))
   end
 
+  # rubocop:disable Metrics/MethodLength
   def task_params
-    params.expect(
+    filtered_params = params.expect(
       task: [
         :name,
-        :description
+        :description,
+        { staff_groups: [] },
+        { staff_users: [] }
       ]
     ).merge(user: current_user)
+
+    filtered_params.each_key do |key|
+      case key
+      when "staff_groups", "staff_users"
+        filtered_params[key].reject! { |element| element == "" }
+        filtered_params[key].map! { |element| key.classify.constantize.find_by(element) }
+      end
+    end
   end
+  # rubocop:enable Metrics/MethodLength
 end

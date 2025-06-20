@@ -18,8 +18,41 @@
     <div>
       <%= form.text_area :description, rows: "6", placeholder: "Describe the task here ..." %>
     </div>
-    <div>
-      <%= form.submit %>
+    <h4>Assignment</h4>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-group-tab" data-bs-toggle="tab" data-bs-target="#nav-group" type="button" role="tab" aria-controls="nav-group" aria-selected="true">Groups</button>
+        <button class="nav-link" id="nav-user-tab" data-bs-toggle="tab" data-bs-target="#nav-user" type="button" role="tab" aria-controls="nav-user" aria-selected="false">Users</button>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-task-assignment">
+      <div class="container tab-pane fade show active" id="nav-group" role="tabpanel" aria-labelledby="nav-group-tab" tabindex="0">
+        <ul class="list-group list-group-horizontal">
+          <%= form.collection_check_boxes_without_bootstrap :staff_groups, all_groups, :id, :name do |b| %>
+            <li class="list-group-item">
+              <div class="form-check form-switch">
+                <%= b.checkbox class: "form-check-input", role: "switch", checked: task.staff_groups.map(&:id).include?(b.value) %>
+                <%= b.label class: "form-check-label" %>
+                ID: <%= b.value %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="container tab-pane fade" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab" tabindex="0">
+        <ul class="list-group list-group-horizontal">
+          <%= form.collection_check_boxes_without_bootstrap :staff_users, all_users, :id, :display_name do |b| %>
+            <li class="list-group-item">
+              <div class="form-check form-switch">
+                <%= b.checkbox class: "form-check-input", role: "switch", checked: task.staff_users.map(&:id).include?(b.value) %>
+                <%= b.label class: "form-check-label" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
-  <% end %>
+    <%= form.submit %>
+  </div>
+<% end %>
 </div>
