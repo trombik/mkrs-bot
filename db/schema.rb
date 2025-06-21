@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_20_022705) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_21_080315) do
+  create_table "acts", force: :cascade do |t|
+    t.string "name"
+    t.boolean "active", default: true, null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "staff_group_memberships", force: :cascade do |t|
     t.integer "staff_user_id", null: false
     t.integer "staff_group_id", null: false
