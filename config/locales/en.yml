@@ -59,4 +59,9 @@ en:
     destroy:
       task_successfully_deleted: Task successfully deleted.
 
+  act:
+    act_successfully_updated: Act successfully updated.
+    act_successfully_created: Act successfully created.
+    act_successfully_deleted: Act successfully deleted.
+
   resource_missing: "Resource not found"
