@@ -1,1 +1,2 @@
 --ignore-directory=log
+--ignore-directory=app/assets/builds
