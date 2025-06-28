@@ -2,8 +2,9 @@
 
 FactoryBot.define do
   factory :act do
-    name { "MyString" }
+    name { "Example task" }
     active { false }
-    description { "MyString" }
+    description { "Example description" }
+    task { association :task }
   end
 end

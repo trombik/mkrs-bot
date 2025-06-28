@@ -49,9 +49,11 @@ RSpec.describe "Tasks", type: :system do
 
     it "create a new task" do
       click_on "Create Task"
-      fill_in "Name", with: new_task_name
-      fill_in "Description", with: new_task_description
-      click_on "Create Task"
+      within "div#form_task" do
+        fill_in "Name", with: new_task_name
+        fill_in "Description", with: new_task_description
+        click_on "Update Task"
+      end
 
       within "div.alert" do
         expect(page).to have_content "successfully"
@@ -70,8 +72,10 @@ RSpec.describe "Tasks", type: :system do
     it "edit a task" do
       new_name = "New Name"
       click_link "Edit", href: edit_task_path(task)
-      fill_in "Name", with: new_name
-      click_on "Update Task"
+      within "div#form_task" do
+        fill_in "Name", with: new_name
+        click_on "Update Task"
+      end
 
       within "div.alert" do
         expect(page).to have_content("successfully")
@@ -136,6 +140,26 @@ RSpec.describe "Tasks", type: :system do
       expect(page).to have_content("successfully")
       expect(task.staff_users).not_to include(staff_user)
       expect(task.assignees).not_to include(staff_user)
+    end
+
+    it "has a button to open a modal to add a task" do
+      visit new_task_url
+      click_on "Create new Act"
+
+      expect do
+        within("div#act_form_component") do
+          fill_in "Name", with: "Act 1"
+          click_on "Create Act"
+        end
+      end.to change(Act, :count).by(1)
+    end
+
+    it "shows a task with assigned acts" do
+      act = create(:act, task: task)
+      task.acts << act
+      visit edit_task_url(task)
+
+      expect(page).to have_link(act.name, href: act_path(act))
     end
   end
 end

@@ -1,5 +1,7 @@
 <% content_for :title, "Editing task" %>
-<div class="container">
+<% modal_for_act = Modal::FormComponent.new("Create new Act", Act::FormComponent.new(Act.new, task.id)) %>
+<%= render modal_for_act %>
+<div class="container" id="<%= dom_class(task, "form") %>">
   <%= bootstrap_form_with(model: task) do |form| %>
     <% if task.errors.any? %>
       <div style="color: red">
@@ -18,7 +20,12 @@
     <div>
       <%= form.text_area :description, rows: "6", placeholder: "Describe the task here ..." %>
     </div>
-    <h4>Assignment</h4>
+    <h3>Task</h3>
+    <%= content_for modal_for_act.button %>
+    <% task.acts.each do |act| %>
+      <%= render Act::ButtonComponent.new(act) %>
+    <% end %>
+    <h3>Assignment</h3>
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <button class="nav-link active" id="nav-group-tab" data-bs-toggle="tab" data-bs-target="#nav-group" type="button" role="tab" aria-controls="nav-group" aria-selected="true">Groups</button>

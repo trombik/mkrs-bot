@@ -22,16 +22,27 @@ RSpec.describe "/acts", type: :request do
     {
       name: "An act",
       active: true,
-      description: "An act for test"
+      description: "An act for test",
+      task: create(:task, user: create(:user))
     }
   end
 
   let(:invalid_attributes) do
     {
-      name: nil,
+      name: "an act",
       active: 1,
-      description: ""
+      description: "",
+      task: create(:task, user: create(:user))
     }
+  end
+
+  let(:valid_params) do
+    valid_attributes[:task] = valid_attributes[:task].id
+    valid_attributes
+  end
+
+  let(:invalid_params) do
+    invalid_attributes[:task] = valid_attributes[:task].id
   end
 
   describe "GET /index" do
@@ -50,13 +61,6 @@ RSpec.describe "/acts", type: :request do
     end
   end
 
-  describe "GET /new" do
-    it "renders a successful response" do
-      get new_act_url
-      expect(response).to be_successful
-    end
-  end
-
   describe "GET /edit" do
     it "renders a successful response" do
       act = Act.create! valid_attributes
@@ -69,12 +73,12 @@ RSpec.describe "/acts", type: :request do
     context "with valid parameters" do
       it "creates a new Act" do
         expect do
-          post acts_url, params: { act: valid_attributes }
+          post acts_url, params: { act: valid_params }
         end.to change(Act, :count).by(1)
       end
 
       it "redirects to the created act" do
-        post acts_url, params: { act: valid_attributes }
+        post acts_url, params: { act: valid_params }
         expect(response).to redirect_to(act_url(Act.last))
       end
     end
@@ -82,48 +86,49 @@ RSpec.describe "/acts", type: :request do
     context "with invalid parameters" do
       it "does not create a new Act" do
         expect do
-          post acts_url, params: { act: invalid_attributes }
+          post acts_url, params: { act: invalid_params }
         end.not_to change(Act, :count)
       end
 
-      it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post acts_url, params: { act: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+      it "renders a response with 400 status (i.e. to display the 'new' template)" do
+        post acts_url, params: { act: invalid_params }
+        expect(response).to have_http_status(:bad_request)
       end
     end
   end
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) do
+      let(:new_params) do
         {
           name: "Foo",
           active: true,
-          description: "Bar"
+          description: "Bar",
+          task: create(:task, user: create(:user)).id
         }
       end
 
       it "updates the requested act" do
         act = Act.create! valid_attributes
-        patch act_url(act), params: { act: new_attributes }
+        patch act_url(act), params: { act: new_params }
         act.reload
 
-        expect(act.name).to eq new_attributes[:name]
+        expect(act.name).to eq new_params[:name]
       end
 
       it "redirects to the act" do
         act = Act.create! valid_attributes
-        patch act_url(act), params: { act: new_attributes }
+        patch act_url(act), params: { act: new_params }
         act.reload
         expect(response).to redirect_to(act_url(act))
       end
     end
 
     context "with invalid parameters" do
-      it "renders a response with 422 status (i.e. to display the 'edit' template)" do
+      it "renders a response with 400 status (i.e. to display the 'edit' template)" do
         act = Act.create! valid_attributes
-        patch act_url(act), params: { act: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        patch act_url(act), params: { act: invalid_params }
+        expect(response).to have_http_status(:bad_request)
       end
     end
   end

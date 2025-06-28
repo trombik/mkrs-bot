@@ -4,4 +4,6 @@
 class Act < ApplicationRecord
   validates :active, inclusion: { in: [true, false] }
   validates :name, presence: true
+
+  belongs_to :task
 end

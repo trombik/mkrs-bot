@@ -11,7 +11,9 @@ class TasksController < ProtectedController
   def show; end
 
   def new
-    @task = Task.new
+    @task = Task.new(user: current_user, name: "Draft Task")
+    @task.save
+    @task
   end
 
   def edit; end

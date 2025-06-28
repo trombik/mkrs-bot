@@ -12,13 +12,10 @@ class ActsController < ApplicationController
   # GET /acts/1 or /acts/1.json
   def show; end
 
-  # GET /acts/new
-  def new
-    @act = Act.new
-  end
-
   # GET /acts/1/edit
-  def edit; end
+  def edit
+    @task = @act.task
+  end
 
   # POST /acts or /acts.json
   def create
@@ -26,7 +23,7 @@ class ActsController < ApplicationController
 
     respond_to do |format|
       if @act.save
-        format.html { redirect_to @act, notice: I18n.t("act.act_successfully_created") }
+        format.html { redirect_back_or_to @act, notice: I18n.t("act.act_successfully_created") }
         format.json { render :show, status: :created, location: @act }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +36,7 @@ class ActsController < ApplicationController
   def update
     respond_to do |format|
       if @act.update(act_params)
-        format.html { redirect_to @act, notice: I18n.t("act.act_successfully_updated") }
+        format.html { redirect_back_or_to @act, notice: I18n.t("act.act_successfully_updated") }
         format.json { render :show, status: :ok, location: @act }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,6 +64,8 @@ class ActsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def act_params
-    params.expect(act: [:name, :active, :description])
+    filtered_params = params.expect(act: [:name, :active, :description, :task])
+    filtered_params[:task] = Task.find_by(id: filtered_params[:task])
+    filtered_params
   end
 end

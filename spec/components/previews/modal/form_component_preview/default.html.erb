@@ -1,0 +1,9 @@
+<%
+  task = FactoryBot.build(:task)
+  act = FactoryBot.build(:act, task: task)
+  form = Act::FormComponent.new(act, task.id)
+  modal = Modal::FormComponent.new("Open", form)
+%>
+
+<%= render modal %>
+<%= content_for modal.button %>
