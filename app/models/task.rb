@@ -5,6 +5,7 @@ class Task < ApplicationRecord
   validates :name, presence: true
 
   belongs_to :user
+  has_many :acts, dependent: :destroy
   has_many :task_assignments, dependent: :destroy
   has_many :staff_users, through: :task_assignments, source: :assignee, source_type: "StaffUser"
   has_many :staff_groups, through: :task_assignments, source: :assignee, source_type: "StaffGroup"

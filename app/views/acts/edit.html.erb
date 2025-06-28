@@ -1,8 +1,8 @@
 <% content_for :title, "Editing act" %>
 
 <h1>Editing act</h1>
-
-<%= render "form", act: @act %>
+<p>This act is used in Task <%= link_to @task.name, @task %></p>
+<%= render Act::FormComponent.new(@act, @task) %>
 
 <br>
 

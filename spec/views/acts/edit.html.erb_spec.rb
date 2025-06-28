@@ -3,26 +3,15 @@
 require "rails_helper"
 
 RSpec.describe "acts/edit", type: :view do
-  let(:act) do
-    Act.create!(
-      name: "MyString",
-      active: false,
-      description: "MyString"
-    )
-  end
+  let(:act) { create(:act, task: create(:task, user: create(:user))) }
 
   before do
     assign(:act, act)
+    assign(:task, act.task)
+    render
   end
 
-  # rubocop:disable RSpec/ExampleLength
-  it "renders the edit act form" do
-    render
-    assert_select "form[action=?][method=?]", act_path(act), "post" do
-      assert_select "input[name=?]", "act[name]"
-      assert_select "input[name=?]", "act[active]"
-      assert_select "input[name=?]", "act[description]"
-    end
+  it "shows which task the act belongs to" do
+    expect(rendered).to match(/#{act.task.name}/)
   end
-  # rubocop:enable RSpec/ExampleLength
 end

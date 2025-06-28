@@ -4,18 +4,7 @@ require "rails_helper"
 
 RSpec.describe "acts/index", type: :view do
   before do
-    assign(:acts, [
-             Act.create!(
-               name: "Name",
-               active: false,
-               description: "Description"
-             ),
-             Act.create!(
-               name: "Name",
-               active: false,
-               description: "Description"
-             )
-           ])
+    assign(:acts, create_list(:act, 2, task: create(:task, user: create(:user))))
   end
 
   it "renders a list of acts" do

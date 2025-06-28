@@ -1,4 +1,5 @@
-<%= form_with(model: act) do |form| %>
+<% form_id = "#{uniq_class_id}_form" %>
+<%= bootstrap_form_with(model: act, url: acts_path, id: form_id) do |form| %>
   <% if act.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(act.errors.count, "error") %> prohibited this act from being saved:</h2>
@@ -12,7 +13,6 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
     <%= form.text_field :name %>
   </div>
 
@@ -22,11 +22,20 @@
   </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
     <%= form.text_field :description %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.hidden_field :task, value: task_id %>
   </div>
+
+  <% content_for submit_button do %>
+    <div>
+      <%= form.submit formaction: acts_path, form: form_id, class: "btn btn-primary" %>
+    </div>
+    <% content_for form_title do %>
+      <% key = act.persisted? ? "helpers.submit.update" : "helpers.submit.create" %>
+      <%= I18n.t(key, model: act.class) %>
+    <% end %>
+  <% end %>
 <% end %>

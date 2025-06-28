@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_21_080315) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_22_050527) do
   create_table "acts", force: :cascade do |t|
     t.string "name"
     t.boolean "active", default: true, null: false
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "task_id", null: false
+    t.index ["task_id"], name: "index_acts_on_task_id"
   end
 
   create_table "staff_group_memberships", force: :cascade do |t|
@@ -68,6 +70,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_21_080315) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "draft", default: true, null: false
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
@@ -83,6 +86,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_21_080315) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "acts", "tasks"
   add_foreign_key "staff_group_memberships", "staff_groups"
   add_foreign_key "staff_group_memberships", "staff_users"
   add_foreign_key "task_assignments", "tasks"

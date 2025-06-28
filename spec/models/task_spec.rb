@@ -109,4 +109,21 @@ RSpec.describe Task, type: :model do
       expect(task.task_assignments.first.assignee).to eq staff
     end
   end
+
+  describe "#acts" do
+    it "returns acts" do
+      acts = 2.times.map { create(:act, task: task) }
+
+      expect(task.acts).to eq acts
+    end
+  end
+
+  describe "#destroy" do
+    it "destroys associated tasks" do
+      act = create(:act, task: task)
+      task.destroy!
+
+      expect(Act.find_by(id: act.id)).to be_nil
+    end
+  end
 end

@@ -4,11 +4,7 @@ require "rails_helper"
 
 RSpec.describe "acts/show", type: :view do
   before do
-    assign(:act, Act.create!(
-                   name: "Name",
-                   active: false,
-                   description: "Description"
-                 ))
+    assign(:act, create(:act, task: create(:task, user: create(:user))))
   end
 
   # rubocop:disable RSpec/MultipleExpectations
