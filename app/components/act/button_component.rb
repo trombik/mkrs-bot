@@ -8,4 +8,12 @@ class Act::ButtonComponent < ViewComponent::Base
     @act = act
     super
   end
+
+  def path
+    act.new_record? ? "#" : act_path(act)
+  end
+
+  def disabled
+    act.new_record?
+  end
 end
