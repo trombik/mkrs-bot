@@ -12,4 +12,8 @@ module ApplicationHelper
   rescue StandardError
     false
   end
+
+  def class_id(obj)
+    obj.class.to_s.underscore.gsub("/", "_")
+  end
 end

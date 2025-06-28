@@ -2,6 +2,15 @@
 
 require "rails_helper"
 
+module Foo
+  # A class for testing helper.class_id
+  class Bar
+    def initialize
+      @foo = "bar"
+    end
+  end
+end
+
 RSpec.describe ApplicationHelper, type: :helper do
   let(:base) { Pathname.new("/etc") }
   let(:target) { Pathname.new("/etc/hosts") }
@@ -53,6 +62,14 @@ RSpec.describe ApplicationHelper, type: :helper do
       it "returns false" do
         expect(helper.include_directory?(does_not_exist, target)).to be false
       end
+    end
+  end
+
+  describe "#class_id" do
+    it "generates id for a class" do
+      obj = Foo::Bar.new
+
+      expect(helper.class_id(obj)).to eq "foo_bar"
     end
   end
 end
