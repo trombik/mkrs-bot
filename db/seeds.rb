@@ -16,6 +16,16 @@ when "development"
     user.password = "password"
     user.password_confirmation = "password"
   end
+  user = User.find_by(email: "y@trombik.org")
 
   StaffGroup.find_or_create_by name: "Example group"
+  if Task.count < 10
+    (10 - Task.count).times do |index|
+      Task.create!(
+        name: "Clean #{Faker::House.room}",
+        description: Faker::Lorem.paragraph(sentence_count: 20),
+        user: user
+      )
+    end
+  end
 end
