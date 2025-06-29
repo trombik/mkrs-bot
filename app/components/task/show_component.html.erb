@@ -28,4 +28,9 @@
         </div>
       </div>
     </div>
+    <h2>Assigned tasks</h2>
+    <% task.acts.each do |act| %>
+      <%= render Act::DetailCardComponent.new(act) %>
+    <% end %>
   </div>
+</div>

@@ -44,10 +44,9 @@ RSpec.describe "Tasks", type: :system do
   end
 
   describe "Features" do
-    let(:new_task_name) { "New task" }
-    let(:new_task_description) { "Description of #{new_task_name}" }
-
     it "create a new task" do
+      new_task_name = "New task"
+      new_task_description = "Description of #{new_task_name}"
       click_on "Create Task"
       within "div#form_task" do
         fill_in "Name", with: new_task_name
@@ -154,12 +153,36 @@ RSpec.describe "Tasks", type: :system do
       end.to change(Act, :count).by(1)
     end
 
-    it "shows a task with assigned acts" do
-      act = create(:act, task: task)
-      task.acts << act
-      visit edit_task_url(task)
+    context "when acts are assigned" do
+      let(:act) { create(:act, task: task) }
 
-      expect(page).to have_link(act.name, href: act_path(act))
+      before { task.acts << act }
+
+      describe "edit" do
+        it "shows a task with assigned acts" do
+          visit edit_task_url(task)
+
+          expect(page).to have_link(act.name, href: act_path(act))
+        end
+      end
+
+      describe "show" do
+        it "shows a task with assigned acts" do
+          visit task_url(task)
+
+          expect(page).to have_content act.name
+        end
+
+        it "has a link to edit the act" do
+          visit task_url(task)
+          within("div#card_#{dom_id(act)}") do
+            click_on "Action"
+            click_on "Edit"
+          end
+
+          expect(page).to have_current_path(edit_act_path(act))
+        end
+      end
     end
   end
 end
