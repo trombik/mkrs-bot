@@ -25,7 +25,7 @@ RSpec.describe Act::ButtonComponent, type: :component do
     end
 
     it "has a link to #" do
-      expect(page).to have_css("a[href='#']")
+      expect(page).to have_link act.name, href: "#"
     end
   end
 
