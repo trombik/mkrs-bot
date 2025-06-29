@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @act %>
+<%= render Act::DetailCardComponent.new @act %>
 
 <div>
   <%= link_to "Edit this act", edit_act_path(@act) %> |
