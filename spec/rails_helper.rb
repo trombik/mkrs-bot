@@ -68,6 +68,9 @@ RSpec.configure do |config|
   # include url_helpers, such as staff_user_path(), in :component
   config.include Rails.application.routes.url_helpers, type: :component
 
+  # dom_id() is necessary in :system
+  config.include ActionView::RecordIdentifier, type: :system
+
   # enable Devise IntegrationHelpers in RSpec
   # https://github.com/heartcombo/devise/wiki/How-To:-Test-controllers-with-Rails-(and-RSpec)
   # https://viewcomponent.org/guide/testing.html#rspec-configuration
