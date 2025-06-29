@@ -20,7 +20,7 @@ when "development"
 
   StaffGroup.find_or_create_by name: "Example group"
   if Task.count < 10
-    (10 - Task.count).times do |index|
+    (10 - Task.count).times do
       Task.create!(
         name: "Clean #{Faker::House.room}",
         description: Faker::Lorem.paragraph(sentence_count: 20),
