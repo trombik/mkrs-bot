@@ -1,0 +1,26 @@
+<div class="container" id="<%= "card_#{dom_id(act)}" %>">
+  <div class="card mb-3" style="max-width: 100%;">
+    <div class="row g-0 align-items-center">
+      <div class="col-md-4">
+        <p class="card-text text-center">
+          Time: 10:00
+        </p>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><%= act.name %></h5>
+          <p class="card-text"><%= act.description %></p>
+          <p class="card-text text-end"><small class="text-muted">Last updated <%= time_ago_in_words(act.updated_at) %></small></p>
+        </div>
+        <div class="card-footer text-end">
+          <% items =[
+            Dropdown::LinkItemComponent.new("Edit", edit_path),
+            Dropdown::LinkItemComponent.new("Delete", "#")
+          ]
+          %>
+          <%= render Dropdown::LinkMenuComponent.new("Action", items, id: "action_menu_for_act_#{act.id}") %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
