@@ -50,6 +50,8 @@ gem "view_component", "~> 3.23"
 
 gem "kramdown", "~> 2.5"
 
+gem "ice_cube"
+
 gem "faker", "~> 3.5.1"
 
 group :development, :test do

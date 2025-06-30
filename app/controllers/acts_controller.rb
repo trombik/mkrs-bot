@@ -26,7 +26,7 @@ class ActsController < ApplicationController
         format.html { redirect_back_or_to @act, notice: I18n.t("act.act_successfully_created") }
         format.json { render :show, status: :created, location: @act }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_back_or_to @act, status: :unprocessable_entity }
         format.json { render json: @act.errors, status: :unprocessable_entity }
       end
     end
@@ -39,7 +39,7 @@ class ActsController < ApplicationController
         format.html { redirect_back_or_to @act, notice: I18n.t("act.act_successfully_updated") }
         format.json { render :show, status: :ok, location: @act }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_back_or_to @act, status: :unprocessable_entity }
         format.json { render json: @act.errors, status: :unprocessable_entity }
       end
     end
@@ -64,7 +64,7 @@ class ActsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def act_params
-    filtered_params = params.expect(act: [:name, :active, :description, :task])
+    filtered_params = params.expect(act: [:name, :active, :description, :task, :starts_at])
     filtered_params[:task] = Task.find_by(id: filtered_params[:task])
     filtered_params
   end
