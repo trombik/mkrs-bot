@@ -3,13 +3,18 @@
 # A builder for Recurrable
 module RecurrenceBuildable
   extend ActiveSupport::Concern
+  RECURRING_TYPES = %w[daily weekly biweekly monthly].freeze
 
   included do
     attr_accessor :recurring_type, :recurring_until
 
-    validates :recurring_type, inclusion: { in: ["daily", "weekly", "biweekly", "monthly", nil] }
+    validates :recurring_type, inclusion: { in: RECURRING_TYPES + [nil] }
 
     before_save :set_recurring_rule
+  end
+
+  def recurring_types
+    RECURRING_TYPES
   end
 
   private

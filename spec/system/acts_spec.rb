@@ -16,16 +16,52 @@ RSpec.describe "Acts", type: :system do
   end
 
   describe "Adding an act" do
-    it "changes Act on count by one" do
+    before do
+      now = Time.zone.now
       click_on "Create new Act"
+      within("div#act_form_component") do
+        fill_in "Name", with: "New act"
+        fill_in "Starts at", with: "#{now.hour}:#{now.min}"
+        choose "Daily"
+      end
+    end
 
-      expect do
-        within("div#act_form_component") do
-          fill_in "Name", with: "New act"
-          fill_in "Starts at", with: "10:00"
-        end
+    context "when params are valid" do
+      it "changes Act on count by one" do
+        expect do
+          click_on "Create Act"
+        end.to change(Act, :count).by(1)
+      end
+
+      it "creates a daily act" do
+        n_day = 365
+        end_time = n_day.days.from_now - 1.hour
         click_on "Create Act"
-      end.to change(Act, :count).by(1)
+
+        expect(Act.first.schedule.occurrences(end_time).count).to eq n_day
+      end
+
+      it "creates a weekly act" do
+        within("div#act_form_component") do
+          choose "Weekly"
+          click_on "Create Act"
+        end
+        n_day = 14
+        end_time = n_day.days.from_now - 1.hour
+
+        expect(Act.first.schedule.occurrences(end_time).count).to eq n_day / 7
+      end
+
+      it "creates a monthly act" do
+        within("div#act_form_component") do
+          choose "Monthly"
+          click_on "Create Act"
+        end
+        n_day = 366
+        end_time = n_day.days.from_now
+
+        expect(Act.first.schedule.occurrences(end_time).count).to eq n_day / 30
+      end
     end
   end
 end

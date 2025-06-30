@@ -64,7 +64,7 @@ class ActsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def act_params
-    filtered_params = params.expect(act: [:name, :active, :description, :task, :starts_at])
+    filtered_params = params.expect(act: [:name, :active, :description, :task, :starts_at, :recurring_type])
     filtered_params[:task] = Task.find_by(id: filtered_params[:task])
     filtered_params
   end
