@@ -148,6 +148,7 @@ RSpec.describe "Tasks", type: :system do
       expect do
         within("div#act_form_component") do
           fill_in "Name", with: "Act 1"
+          fill_in "Starts at", with: "10:00"
           click_on "Create Act"
         end
       end.to change(Act, :count).by(1)

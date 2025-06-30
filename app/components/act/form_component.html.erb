@@ -29,6 +29,10 @@
     <%= form.hidden_field :task, value: task_id %>
   </div>
 
+  <div>
+    <%= form.time_field :starts_at %>
+  </div>
+
   <% content_for submit_button do %>
     <div>
       <%= form.submit formaction: acts_path, form: form_id, class: "btn btn-primary" %>

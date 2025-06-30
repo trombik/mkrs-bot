@@ -6,5 +6,6 @@ FactoryBot.define do
     active { false }
     description { "Example description" }
     task { association :task }
+    starts_at { Time.zone.now }
   end
 end
