@@ -3,7 +3,10 @@
     <div class="row g-0 align-items-center">
       <div class="col-md-4">
         <p class="card-text text-center">
-          Time: 10:00
+          Type: <%= act.schedule.to_s %>
+        </p>
+        <p class="card-text text-center">
+          Time: <%= act.starts_at.strftime("%H:%M") %>
         </p>
       </div>
       <div class="col-md-8">
