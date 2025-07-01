@@ -1,5 +1,5 @@
 <% content_for :title, "Editing task" %>
-<% modal_for_act = Modal::FormComponent.new("Create new Act", Act::FormComponent.new(Act.new, task.id)) %>
+<% modal_for_act = Modal::FormComponent.new("Create new Act", Act::FormComponent.new(new_act, task.id)) %>
 <%= render modal_for_act %>
 <div class="container" id="<%= dom_class(task, "form") %>">
   <%= bootstrap_form_with(model: task) do |form| %>
