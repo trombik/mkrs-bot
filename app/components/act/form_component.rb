@@ -21,4 +21,10 @@ class Act::FormComponent < ViewComponent::Base
   def uniq_class_id
     helpers.class_id(self)
   end
+
+  private
+
+  def equal_recurring_type_to?(type)
+    act.schedule.to_s.downcase == type
+  end
 end

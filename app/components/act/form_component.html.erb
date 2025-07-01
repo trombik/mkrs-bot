@@ -32,7 +32,7 @@
   <div>
     <%= form.form_group :recurring_type, label: { text: "Reccuring type" }, help: "Choose a type" do %>
       <% act.recurring_types.each do |type| %>
-        <%= form.radio_button :recurring_type, type, label: type.upcase_first %>
+        <%= form.radio_button :recurring_type, type, label: type.upcase_first, checked: equal_recurring_type_to?(type) %>
       <% end %>
     <% end %>
   </div>
