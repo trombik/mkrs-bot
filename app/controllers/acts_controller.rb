@@ -64,8 +64,22 @@ class ActsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def act_params
-    filtered_params = params.expect(act: [:name, :active, :description, :task, :starts_at, :recurring_type])
+    filtered_params = params.expect(act: allowed_params)
     filtered_params[:task] = Task.find_by(id: filtered_params[:task])
+    if filtered_params.key? :recurring_until
+      filtered_params[:recurring_until] = Time.zone.parse(filtered_params[:recurring_until])
+    end
     filtered_params
+  end
+
+  def allowed_params
+    [
+      :name,
+      :active,
+      :description,
+      :task, :starts_at,
+      :recurring_type,
+      :recurring_until
+    ]
   end
 end

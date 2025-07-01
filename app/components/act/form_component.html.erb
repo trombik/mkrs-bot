@@ -41,6 +41,10 @@
     <%= form.datetime_field :starts_at %>
   </div>
 
+  <div>
+    <%= form.datetime_field :recurring_until %>
+  </div>
+
   <% content_for submit_button do %>
     <div>
       <%= form.submit formaction: acts_path, form: form_id, class: "btn btn-primary" %>
