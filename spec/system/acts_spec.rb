@@ -69,6 +69,15 @@ RSpec.describe "Acts", type: :system do
 
         expect(Act.first.schedule.occurrences(end_time).count).to eq n_day / 30
       end
+
+      it "creates an act with recurring_until" do
+        recurring_until = now + 1.minute
+        fill_in "Recurring until", with: recurring_until.strftime("%FT%H:%M")
+        click_on "Create Act"
+        act = Act.first
+
+        expect(act.schedule.all_occurrences.count).to eq 1
+      end
     end
   end
 end
