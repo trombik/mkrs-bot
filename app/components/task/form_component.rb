@@ -16,4 +16,12 @@ class Task::FormComponent < ViewComponent::Base
   def all_users
     StaffUser.all
   end
+
+  private
+
+  def new_act
+    new_act = Act.new
+    new_act.starts_at = DateTime.current.beginning_of_minute.beginning_of_hour
+    new_act
+  end
 end

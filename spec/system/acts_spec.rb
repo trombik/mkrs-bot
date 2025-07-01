@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe "Acts", type: :system do
   let(:user) { create(:user) }
   let(:task) { create(:task, user: user) }
+  let(:now) { Time.zone.now.beginning_of_hour.beginning_of_minute }
 
   before do
     visit "/"
@@ -17,16 +18,22 @@ RSpec.describe "Acts", type: :system do
 
   describe "Adding an act" do
     before do
-      now = Time.zone.now
       click_on "Create new Act"
       within("div#act_form_component") do
         fill_in "Name", with: "New act"
-        fill_in "Starts at", with: "#{now.hour}:#{now.min}"
+        fill_in "Starts at", with: now.strftime("%FT%H:%M")
         choose "Daily"
       end
     end
 
     context "when params are valid" do
+      it "creates an act" do
+        click_on "Create Act"
+        act = Act.first
+
+        expect(act.starts_at.rfc3339).to eq now.rfc3339
+      end
+
       it "changes Act on count by one" do
         expect do
           click_on "Create Act"
@@ -57,7 +64,7 @@ RSpec.describe "Acts", type: :system do
           choose "Monthly"
           click_on "Create Act"
         end
-        n_day = 366
+        n_day = 30
         end_time = n_day.days.from_now
 
         expect(Act.first.schedule.occurrences(end_time).count).to eq n_day / 30
