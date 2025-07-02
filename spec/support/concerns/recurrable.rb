@@ -5,6 +5,10 @@ require "rails_helper"
 shared_examples_for "Recurrable" do
   let(:model) { described_class }
 
+  before do
+    travel_to Time.current.beginning_of_day
+  end
+
   describe "#schedule" do
     let(:act_recurring) { Act.include_recurring.first }
 

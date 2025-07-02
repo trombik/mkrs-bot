@@ -15,6 +15,7 @@ RSpec.describe Act::FormComponent, type: :component do
   end
 
   before do
+    travel_to Time.current.beginning_of_day
     render_inline described_class.new(act, act.task.id)
   end
 
