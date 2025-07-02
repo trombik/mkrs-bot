@@ -59,6 +59,9 @@ RSpec.configure do |config|
   # Reset bot after test
   config.after { Telegram.bot.reset }
 
+  # Use Rails-provided test helper methods
+  config.include ActiveSupport::Testing::TimeHelpers
+
   # enable ViewComponent test helpers in RSpec
   # https://viewcomponent.org/guide/testing.html#rspec-configuration
   config.include ViewComponent::TestHelpers, type: :component

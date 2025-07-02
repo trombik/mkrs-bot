@@ -46,6 +46,10 @@ RSpec.describe "/acts", type: :request do
     invalid_attributes[:task] = valid_attributes[:task].id
   end
 
+  before do
+    travel_to Time.current.beginning_of_day
+  end
+
   describe "GET /index" do
     it "renders a successful response" do
       Act.create! valid_attributes
