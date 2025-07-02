@@ -52,7 +52,7 @@ gem "kramdown", "~> 2.5"
 
 gem "ice_cube"
 
-gem "faker", "~> 3.5.1"
+gem "faker", "~> 3.5.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
