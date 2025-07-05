@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Telegram::Messenger, telegram_bot: :rails do
+RSpec.describe Telegram::Messenger, telegram_bot: :poller do
   let(:chat) { { "id" => 123 } }
   let(:messenger) { described_class.new(from: from, chat: chat, args: text) }
 

@@ -6,7 +6,7 @@ require "view_component/test_helpers"
 require "view_component/system_test_helpers"
 require "capybara/rspec"
 require "devise"
-require "telegram/bot/rspec/integration/rails"
+require "telegram/bot/rspec/integration/poller"
 
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"

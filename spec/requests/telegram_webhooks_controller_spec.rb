@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
+RSpec.describe TelegramWebhooksController, telegram_bot: :poller do
   describe "#start!" do
     it "greets" do
       expect { dispatch_command :start }.to respond_with_message I18n.t "telegram_webhooks.start.content"
@@ -39,16 +39,7 @@ RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
     let(:command) { :UnknownCommand }
 
     it "says `cannot perform command`" do
-      expect { dispatch_command command }.to respond_with_message(/Cannot perform command:/)
-    end
-  end
-
-  context "when unsupported feature is called" do
-    subject(:unknown_feature) { -> { dispatch time_travel: { back_to: :the_future } } }
-
-    it "does nothing" do
-      unknown_feature.call
-      expect(response).to be_ok
+      expect { dispatch_command command }.to respond_with_message(/Cannot perform command: `UnknownCommand`/)
     end
   end
 end
