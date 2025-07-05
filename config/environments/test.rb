@@ -56,7 +56,7 @@ Rails.application.configure do
   # Telegram::Bot
   #
   # Use memory_store for session
-  config.telegram_updates_controller.session_store = :memory_store
+  config.telegram_updates_controller.session_store = :file_store, Rails.root.join("tmp/session_store")
 
   # Stub clients before processing routes.rb.
   Telegram::Bot::ClientStub.stub_all!
