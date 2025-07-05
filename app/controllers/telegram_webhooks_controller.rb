@@ -2,6 +2,16 @@
 
 # The Telegram controller
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
+  include Telegram::Bot::UpdatesController::Session
+
+  def dispatch
+    if update["message"] && session["controller"].present?
+      session["controller"].dispatch(bot, update)
+    else
+      super
+    end
+  end
+
   def start!(*)
     respond_with :message, text: t(".content")
   end
@@ -23,5 +33,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     respond_with :message,
                  text: t(".action_missing.command", command: action_options[:command])
+  end
+
+  def session_key
+    "#{bot.username}:#{chat["id"]}:#{from["id"]}" if chat && from
   end
 end
