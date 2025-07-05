@@ -22,7 +22,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     return unless action_type == :command
 
     respond_with :message,
-                 text: t(".action_missing.command"),
-                 command: action_options[:command]
+                 text: t(".action_missing.command", command: action_options[:command])
   end
 end
