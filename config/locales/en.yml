@@ -28,6 +28,12 @@
 #       enabled: "ON"
 ---
 en:
+  telegram_bot:
+    ask_closed_question:
+      answer_from_message:
+        correct_answer: "Your answer is %{answer}"
+        wrong_answer: Choose one of the possible answer from the keyboard
+
   telegram_webhooks:
     help:
       content: |
