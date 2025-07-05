@@ -6,6 +6,7 @@ class TelegramBot::AskClosedQuestionController < Telegram::Bot::UpdatesControlle
 
   def ask_closed_question(question, *choices)
     @question = question
+    take_control!
     session[:choices] = choices
     save_context :answer_from_message
     message_with_keyboard(question, choices)
@@ -15,6 +16,7 @@ class TelegramBot::AskClosedQuestionController < Telegram::Bot::UpdatesControlle
     answer = words.join(" ")
     if choices.include?(answer)
       respond_with :message, text: t(".correct_answer", answer: words.first)
+      give_control!
     else
       respond_with :message, text: t(".wrong_answer")
       save_context :answer_from_message
@@ -39,5 +41,13 @@ class TelegramBot::AskClosedQuestionController < Telegram::Bot::UpdatesControlle
 
   def session_key
     "#{bot.username}:#{chat["id"]}:#{from["id"]}" if chat && from
+  end
+
+  def take_control!
+    session["controller"] = self.class
+  end
+
+  def give_control!
+    session.delete(:contoller)
   end
 end
