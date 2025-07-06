@@ -48,6 +48,6 @@ class TelegramBot::AskClosedQuestionController < Telegram::Bot::UpdatesControlle
   end
 
   def give_control!
-    session.delete(:contoller)
+    session.delete("controller")
   end
 end
