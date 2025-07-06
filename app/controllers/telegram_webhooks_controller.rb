@@ -3,6 +3,7 @@
 # The Telegram controller
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::Session
+  include FlowControllable
 
   after_action :cleanup
 
@@ -11,8 +12,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     return super if update["message"] && update["message"]["text"].starts_with?("/")
 
     # when another controller has taken the control, dispatch the class
-    if update["message"] && session["controller"].present?
-      session["controller"].dispatch(bot, update)
+    if update["message"] && controller_flying.present?
+      controller_flying.dispatch(bot, update)
     else
       super
     end

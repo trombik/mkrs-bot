@@ -3,6 +3,7 @@
 # A class for asking a closed question
 class TelegramBot::AskClosedQuestionController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
+  include FlowControllable
 
   def ask_closed_question(question, *choices)
     @question = question
@@ -41,13 +42,5 @@ class TelegramBot::AskClosedQuestionController < Telegram::Bot::UpdatesControlle
 
   def session_key
     "#{bot.username}:#{chat["id"]}:#{from["id"]}" if chat && from
-  end
-
-  def take_control!
-    session["controller"] = self.class
-  end
-
-  def give_control!
-    session.delete("controller")
   end
 end
