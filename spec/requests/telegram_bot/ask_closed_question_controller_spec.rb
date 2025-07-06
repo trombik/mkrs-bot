@@ -47,4 +47,49 @@ RSpec.describe TelegramBot::AskClosedQuestionController, telegram_bot: :poller d
       end
     end
   end
+
+  # rubocop:disable RSpec/MultipleMemoizedHelpers
+  describe "control of the flow" do
+    let(:update) { { message: { from: from, chat: chat, text: "foobarbuz" } }.as_json }
+
+    before do
+      # start the flow in the described_class
+      controller.process :ask_closed_question, question, choices
+    end
+
+    context "when the answer is correct one" do
+      it "takes control form the main controller" do
+        allow(described_class).to receive(:dispatch)
+        dispatch_message choices.first, from: from, chat: chat
+
+        expect(described_class).to have_received(:dispatch).exactly(1).times
+      end
+
+      it "gives the control to the main one" do
+        dispatch_message choices.first, from: from, chat: chat
+        allow(described_class).to receive(:dispatch)
+        TelegramWebhooksController.dispatch(bot, update)
+
+        expect(described_class).to have_received(:dispatch).exactly(0).times
+      end
+    end
+
+    context "when the answer is incorrect one" do
+      it "takes control form the main controller" do
+        allow(described_class).to receive(:dispatch)
+        dispatch_message "foo", from: from, chat: chat
+
+        expect(described_class).to have_received(:dispatch).exactly(1).times
+      end
+
+      it "still keeps the control" do
+        dispatch_message "wrong answer", from: from, chat: chat
+        allow(described_class).to receive(:dispatch)
+        TelegramWebhooksController.dispatch(bot, update)
+
+        expect(described_class).to have_received(:dispatch).exactly(1).times
+      end
+    end
+    # rubocop:enable RSpec/MultipleMemoizedHelpers
+  end
 end
