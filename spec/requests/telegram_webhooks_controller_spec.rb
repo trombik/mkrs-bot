@@ -52,13 +52,33 @@ RSpec.describe TelegramWebhooksController, telegram_bot: :poller do
   context "when another controller took a control" do
     let(:another_class) { TelegramBot::AskClosedQuestionController }
 
-    it "dispatches the controller" do
+    before do
       another = another_class.new(bot, from: from, chat: chat)
       another.process :ask_closed_question, "foo", [1, 2]
       allow(another_class).to receive(:dispatch)
-      dispatch_message "something", from: from, chat: chat
+    end
 
-      expect(another_class).to have_received(:dispatch)
+    context "when the message is not a command" do
+      it "dispatches the controller" do
+        dispatch_message "something", from: from, chat: chat
+
+        expect(another_class).to have_received(:dispatch)
+      end
+    end
+
+    context "when the message is a command" do
+      it "takes control back" do
+        dispatch_command :help
+
+        expect(another_class).not_to have_received(:dispatch)
+      end
+
+      it "does not dispatch another controller after that" do
+        dispatch_command :help
+        dispatch_message "something", from: from, chat: chat
+
+        expect(another_class).not_to have_received(:dispatch)
+      end
     end
   end
 end
