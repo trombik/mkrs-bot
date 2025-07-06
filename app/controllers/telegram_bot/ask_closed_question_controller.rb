@@ -4,6 +4,7 @@
 class TelegramBot::AskClosedQuestionController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
   include FlowControllable
+  include SessionKeyable
 
   def ask_closed_question(question, *choices)
     @question = question
@@ -38,9 +39,5 @@ class TelegramBot::AskClosedQuestionController < Telegram::Bot::UpdatesControlle
                    resize_keyboard: true,
                    one_time_keyboard: true
                  }
-  end
-
-  def session_key
-    "#{bot.username}:#{chat["id"]}:#{from["id"]}" if chat && from
   end
 end

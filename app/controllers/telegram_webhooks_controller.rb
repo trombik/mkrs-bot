@@ -4,6 +4,7 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::Session
   include FlowControllable
+  include SessionKeyable
 
   after_action :cleanup
 
@@ -42,11 +43,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
                  text: t(".action_missing.command", command: action_options[:command])
   end
 
-  def session_key
-    "#{bot.username}:#{chat["id"]}:#{from["id"]}" if chat && from
-  end
-
   def cleanup
-    session.delete("controller")
+    give_control!
   end
 end
