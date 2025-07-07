@@ -3,11 +3,7 @@
 require "rails_helper"
 
 RSpec.describe TelegramBot::AskClosedQuestionController, telegram_bot: :poller do
-  let(:from) { { "id" => 123 } }
-  let(:chat) { { "id" => 456 } }
-  let(:controller) do
-    described_class.new(bot, from: from, chat: chat)
-  end
+  include_context "with telegram context"
   let(:question) { "Are you a bot?" }
   let(:choices) { %w[Yes No] }
 
@@ -48,7 +44,6 @@ RSpec.describe TelegramBot::AskClosedQuestionController, telegram_bot: :poller d
     end
   end
 
-  # rubocop:disable RSpec/MultipleMemoizedHelpers
   describe "control of the flow" do
     let(:update) { { message: { from: from, chat: chat, text: "foobarbuz" } }.as_json }
 
@@ -90,6 +85,5 @@ RSpec.describe TelegramBot::AskClosedQuestionController, telegram_bot: :poller d
         expect(described_class).to have_received(:dispatch).exactly(1).times
       end
     end
-    # rubocop:enable RSpec/MultipleMemoizedHelpers
   end
 end
