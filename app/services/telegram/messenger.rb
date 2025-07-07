@@ -20,20 +20,12 @@ module Telegram
       new(from: from, chat: chat, args: args).call
     end
 
-    def token
-      Rails.application.credentials.telegram[:bot][:token]
-    end
-
-    def username
-      Rails.application.credentials.telegram[:bot][:username]
-    end
-
     def bot
-      Telegram::Bot::Client.new(token, username)
+      Telegram::BotBuilder.call(@from, @chat)
     end
 
     def controller
-      TelegramWebhooksController.new(bot, from: @from, chat: @chat)
+      Telegram::ControllerBuilder.call(@from, @chat, bot: bot)
     end
 
     def call
