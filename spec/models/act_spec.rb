@@ -20,6 +20,9 @@ RSpec.describe Act, type: :model do
     it { is_expected.to validate_presence_of(:act_type) }
     it { is_expected.not_to allow_value("foo").for(:act_type) }
     it { is_expected.to allow_value("AskClosedQuestion").for(:act_type) }
+
+    it { is_expected.not_to allow_value("---\n foo: bar::").for(:yaml_arg) }
+    it { is_expected.to allow_value("---\n foo: bar").for(:yaml_arg) }
   end
 
   describe "Recurrable" do

@@ -9,6 +9,7 @@ class Act < ApplicationRecord
   validates :name, presence: true
   validates :starts_at, presence: true
   validates :act_type, presence: true, telegram_class: true
+  validates :yaml_arg, valid_yaml: true
 
   belongs_to :task
 
