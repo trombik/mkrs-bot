@@ -8,5 +8,6 @@ FactoryBot.define do
     task { association :task }
     starts_at { Time.zone.now }
     act_type { "AskClosedQuestion" }
+    yaml_arg { "---\n" }
   end
 end

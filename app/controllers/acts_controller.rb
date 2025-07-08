@@ -80,7 +80,8 @@ class ActsController < ApplicationController
       :task, :starts_at,
       :recurring_type,
       :recurring_until,
-      :act_type
+      :act_type,
+      :yaml_arg
     ]
   end
 end

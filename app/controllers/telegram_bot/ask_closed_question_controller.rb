@@ -17,6 +17,16 @@ class TelegramBot::AskClosedQuestionController < Telegram::Bot::UpdatesControlle
     }
   end
 
+  def self.args_template
+    <<~YAML.strip
+      ---
+      question: Do you like coffee?
+      answers:
+        - Yes
+        - No
+    YAML
+  end
+
   def ask_closed_question(question, *choices)
     @question = question
     take_control!

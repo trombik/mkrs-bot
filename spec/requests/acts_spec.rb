@@ -25,7 +25,8 @@ RSpec.describe "/acts", type: :request do
       description: "An act for test",
       task: create(:task, user: create(:user)),
       starts_at: Time.zone.now,
-      act_type: "AskClosedQuestion"
+      act_type: "AskClosedQuestion",
+      yaml_arg: "---\n"
     }
   end
 
@@ -35,7 +36,8 @@ RSpec.describe "/acts", type: :request do
       active: 1,
       description: "",
       task: create(:task, user: create(:user)),
-      act_type: "AskClosedQuestion"
+      act_type: "AskClosedQuestion",
+      yaml_arg: "---\n"
     }
   end
 
