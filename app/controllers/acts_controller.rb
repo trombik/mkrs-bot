@@ -79,7 +79,8 @@ class ActsController < ApplicationController
       :description,
       :task, :starts_at,
       :recurring_type,
-      :recurring_until
+      :recurring_until,
+      :act_type
     ]
   end
 end

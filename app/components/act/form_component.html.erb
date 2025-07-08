@@ -38,6 +38,14 @@
   </div>
 
   <div>
+    <%= form.form_group :act_type, label: { text: "Type of act" }, help: "Choose which type of action to take." do %>
+      <% act_types.each do |act_type| %>
+        <%= form.radio_button :act_type, act_type, label: "#{act_type.titleize} (#{act_type_description(act_type)})", checked: act_type_of?(act_type) %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div>
     <%= form.datetime_field :starts_at %>
   </div>
 

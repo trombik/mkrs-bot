@@ -24,7 +24,8 @@ RSpec.describe "/acts", type: :request do
       active: true,
       description: "An act for test",
       task: create(:task, user: create(:user)),
-      starts_at: Time.zone.now
+      starts_at: Time.zone.now,
+      act_type: "AskClosedQuestion"
     }
   end
 
@@ -33,7 +34,8 @@ RSpec.describe "/acts", type: :request do
       name: "an act",
       active: 1,
       description: "",
-      task: create(:task, user: create(:user))
+      task: create(:task, user: create(:user)),
+      act_type: "AskClosedQuestion"
     }
   end
 

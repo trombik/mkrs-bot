@@ -6,6 +6,17 @@ class TelegramBot::AskClosedQuestionController < Telegram::Bot::UpdatesControlle
   include FlowControllable
   include SessionKeyable
 
+  def self.description
+    {
+      about: "Ask a closed question with possible answers",
+      args:
+        [
+          question: "The question to ask",
+          choices: "Posiible answer(s)."
+        ]
+    }
+  end
+
   def ask_closed_question(question, *choices)
     @question = question
     take_control!

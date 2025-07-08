@@ -7,5 +7,6 @@ FactoryBot.define do
     description { "Example description" }
     task { association :task }
     starts_at { Time.zone.now }
+    act_type { "AskClosedQuestion" }
   end
 end

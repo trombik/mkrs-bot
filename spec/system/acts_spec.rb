@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Acts", type: :system do
   let(:user) { create(:user) }
   let(:task) { create(:task, user: user) }
-  let(:now) { Time.zone.now.beginning_of_hour.beginning_of_minute }
+  let!(:now) { Time.zone.now.beginning_of_hour.beginning_of_minute }
 
   before do
     visit "/"
@@ -23,6 +23,7 @@ RSpec.describe "Acts", type: :system do
         fill_in "Name", with: "New act"
         fill_in "Starts at", with: now.strftime("%FT%H:%M")
         choose "Daily"
+        choose "Ask Closed Question"
       end
     end
 
