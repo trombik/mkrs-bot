@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_30_013717) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_08_021256) do
   create_table "acts", force: :cascade do |t|
     t.string "name"
     t.boolean "active", default: true, null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_30_013717) do
     t.datetime "starts_at"
     t.string "recurring_rule"
     t.datetime "recurring_until"
+    t.string "act_type"
     t.index ["task_id"], name: "index_acts_on_task_id"
   end
 

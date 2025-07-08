@@ -38,4 +38,8 @@ RSpec.describe Act::FormComponent, type: :component do
   it "has starts_at now" do
     expect(page).to have_css("input[value='#{now.strftime("%FT%H:%M:%S")}']")
   end
+
+  it "has act_type AskClosedQuestion checked" do
+    expect(page).to have_css("input[value='AskClosedQuestion'][checked]")
+  end
 end

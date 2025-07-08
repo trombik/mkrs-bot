@@ -27,4 +27,16 @@ class Act::FormComponent < ViewComponent::Base
   def equal_recurring_type_to?(type)
     act.schedule.to_s.downcase == type
   end
+
+  def act_types
+    Telegram::ControllerCollector.call.map { |c| c.to_s.gsub(/^TelegramBot::/, "").gsub("Controller", "") }
+  end
+
+  def act_type_description(act_type)
+    "TelegramBot::#{act_type}Controller".safe_constantize&.description&.[](:about) || "no description"
+  end
+
+  def act_type_of?(act_type)
+    act.act_type == act_type
+  end
 end
