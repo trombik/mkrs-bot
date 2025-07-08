@@ -20,4 +20,10 @@ class Act < ApplicationRecord
   def all_telegram_bot_classes
     Telegram::ControllerCollector.call
   end
+
+  def description_of_act_type
+    return unless act_type
+
+    telegram_bot_class.description
+  end
 end

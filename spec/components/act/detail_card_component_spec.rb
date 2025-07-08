@@ -25,4 +25,8 @@ RSpec.describe Act::DetailCardComponent, type: :component do
   it "has link to Delete" do
     expect(page).to have_link("Delete")
   end
+
+  it "has a description of the act_type" do
+    expect(page).to have_content act.description_of_act_type[:about]
+  end
 end
